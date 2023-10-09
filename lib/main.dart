@@ -1,26 +1,8 @@
-import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/material.dart';
-//
-// void main() {
-//   runApp(const MyApp());
-// }
 
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await _configureAmplify();
+void main() {
   runApp(const MyApp());
 }
-
-Future<void> _configureAmplify() async {
-  try {
-
-  } catch (e) {
-    print('amplify fail');
-  }
-}
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
