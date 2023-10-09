@@ -27,7 +27,7 @@ jobs:
 
       # (3)
       - name: Make copy of artifacts
-        run: ls
+        run: |
           chmod u+x "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
           bash "${GITHUB_WORKSPACE}/createandcopytofolder.sh"
           
