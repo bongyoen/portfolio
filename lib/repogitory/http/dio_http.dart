@@ -9,7 +9,7 @@ class DioHttp {
   DioHttp._internal() {
 
     _dio = Dio(BaseOptions(
-      baseUrl: 'https://www.google.com/',
+      baseUrl: 'https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/',
       headers: {
         // 'Accept': 'application/json',
         // 'Content-Type':'application/json',

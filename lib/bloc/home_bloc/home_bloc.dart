@@ -30,7 +30,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     Dio dio = DioHttp().to();
     print("실행");
-    dio.get("").then((value){
+    dio.get("info").then((value){
       print("되었다!");
       print(value);
     }).catchError((err) {
