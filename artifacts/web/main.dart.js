@@ -59392,7 +59392,7 @@ s=$.afT()
 A.fY("\uc2e4\ud589")
 r=A.alk()
 r.a="GET"
-s.zd(0,"",p,p,p,r,p,t.z).aZ(new A.SK(),t.P).js(new A.SL())
+s.zd(0,"info",p,p,p,r,p,t.z).aZ(new A.SK(),t.P).js(new A.SL())
 q=this.at
 if(!b.d)b.a.$1(new A.pQ(q))},
 Px(a,b){var s=a.ga2x(a)
@@ -64995,7 +64995,7 @@ r($,"asd","afI",()=>{var q=null
 return A.om(q,q,B.iF,q,q,q,q,q,q,q,q,28,q,q,B.eT,q,q,!0,q,q,q,q,q,q,q,q)})
 r($,"asc","afH",()=>{var q=null
 return A.om(q,q,B.i,q,q,q,q,q,q,q,q,16,q,q,B.eT,q,q,!0,q,q,q,q,q,q,q,q)})
-s($,"asI","afU",()=>{var q=t.N,p=t.z,o=A.aal(A.a9W("https://www.google.com/",A.aQ(["Access-Control-Allow-Origin","*"],q,p)))
+s($,"asI","afU",()=>{var q=t.N,p=t.z,o=A.aal(A.a9W("https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/",A.aQ(["Access-Control-Allow-Origin","*"],q,p)))
 $.ajl=o
 o=o.Ho$
 o.D(o,new A.qz())
