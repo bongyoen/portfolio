@@ -18,20 +18,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<ChangeAppBarHeadersAxis>(_changeAppBarHeadersAxis);
     on<ChangeAppBarHeadersColorByColor>(_changeAppBarHeadersColorByColor);
   }
+
   int _appBarHeaderIndex = 0;
+
   int get appBarHeaderIndex => _appBarHeaderIndex;
 
   FutureOr<void> _changeAppBarHeadersIndex(
-      ChangeAppBarHeadersIndex event,
-      Emitter<HomeState> emit,
-      ) {
+    ChangeAppBarHeadersIndex event,
+    Emitter<HomeState> emit,
+  ) {
     _appBarHeaderIndex = event.index;
 
-
     Dio dio = DioRest().to();
-    Dio dio2 = Dio(BaseOptions(baseUrl: "https://www.google.com"));
+    Dio dio2 = Dio(BaseOptions(
+        baseUrl: "https://www.google.com",
+        headers: {
+          "Content-Type" : "application/json"
+        }
+    ));
     print("실행");
-    dio.get("info").then((value){
+    dio.get("info").then((value) {
       print("되었다!");
       print(value);
     }).catchError((err) {
@@ -42,7 +48,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         print("구글은 성공");
       }).catchError((err) => print(err));
     });
-
 
     // http.get(Uri.parse("https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/info")).then((value) {
     //   print(json.decode(value.body));
@@ -56,20 +61,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> _changeAppBarHeadersColorByColor(
-      ChangeAppBarHeadersColorByColor event,
-      Emitter<HomeState> emit,
-      ) {
+    ChangeAppBarHeadersColorByColor event,
+    Emitter<HomeState> emit,
+  ) {
     _appBarHeaderIndex = event.index;
     emit(AppBarHeadersColorChangedByIndex(_appBarHeaderIndex));
   }
 
   AppBarHeadersAxis _appBarHeaderAxis = AppBarHeadersAxis.horizontal;
+
   AppBarHeadersAxis get appBarHeaderAxis => _appBarHeaderAxis;
 
   FutureOr<void> _changeAppBarHeadersAxis(
-      ChangeAppBarHeadersAxis event,
-      Emitter<HomeState> emit,
-      ) {
+    ChangeAppBarHeadersAxis event,
+    Emitter<HomeState> emit,
+  ) {
     _appBarHeaderAxis = event.headersAxis;
     emit(AppBarHeadersAxisChanged(_appBarHeaderAxis));
   }

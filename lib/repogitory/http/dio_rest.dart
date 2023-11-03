@@ -11,7 +11,7 @@ class DioRest {
       baseUrl: 'https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/',
       headers: {
         // 'Accept': 'application/json',
-        // 'Content-Type':'application/json',
+        'Content-Type':'application/json',
         'Access-Control-Allow-Origin': '*',
       },
     ));
