@@ -14,6 +14,7 @@ class DioRest {
         "Accept": "application/json",
         'Content-type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
+        'Access-Control-Allow-Credentials': 'true'
       },
     );
     _dio = Dio(options);
