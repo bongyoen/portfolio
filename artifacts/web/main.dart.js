@@ -64995,7 +64995,7 @@ r($,"ase","afI",()=>{var q=null
 return A.om(q,q,B.iF,q,q,q,q,q,q,q,q,28,q,q,B.eT,q,q,!0,q,q,q,q,q,q,q,q)})
 r($,"asd","afH",()=>{var q=null
 return A.om(q,q,B.i,q,q,q,q,q,q,q,q,16,q,q,B.eT,q,q,!0,q,q,q,q,q,q,q,q)})
-s($,"asJ","afU",()=>{var q="application/json",p=$.ajm=A.aal(A.a9W("https://api.beyoundi.link",A.aQ(["Accept",q,"Content-type",q,"X-Requested-With","XMLHttpRequest"],t.N,t.z))),o=A.aiB()
+s($,"asJ","afU",()=>{var q="application/json",p=$.ajm=A.aal(A.a9W("https://api.beyoundi.link",A.aQ(["Accept",q,"Content-type",q,"X-Requested-With","XMLHttpRequest","Access-Control-Allow-Credentials","true"],t.N,t.z))),o=A.aiB()
 o.b=!0
 p.xD$=o
 p=p.Hp$
