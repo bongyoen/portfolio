@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/bloc/home_bloc/home_state.dart';
 import 'package:portfolio/core/utils/app_extensions.dart';
-import 'package:portfolio/repogitory/http/dio_http.dart';
+import 'package:portfolio/repogitory/http/dio_rest.dart';
 import 'package:portfolio/widgets/body/career_section.dart';
 import 'package:portfolio/widgets/body/contract_section.dart';
 import 'package:portfolio/widgets/body/project_section.dart';

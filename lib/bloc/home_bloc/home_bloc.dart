@@ -10,7 +10,7 @@ import 'package:portfolio/bloc/home_bloc/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/utils/app_enums.dart';
-import '../../repogitory/http/dio_http.dart';
+import '../../repogitory/http/dio_rest.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
@@ -28,7 +28,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     _appBarHeaderIndex = event.index;
 
 
-    Dio dio = DioHttp().to();
+    Dio dio = DioRest().to();
+    Dio dio2 = Dio(BaseOptions(baseUrl: "https://www.google.com"));
     print("실행");
     dio.get("info").then((value){
       print("되었다!");
@@ -36,6 +37,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }).catchError((err) {
       print("에러발생 ");
       print(err);
+
+      dio2.get("").then((value) {
+        print("구글은 성공");
+      }).catchError((err) => print(err));
     });
 
 

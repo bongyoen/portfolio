@@ -1,12 +1,11 @@
 import 'package:dio/dio.dart';
 
-class DioHttp {
-  static final DioHttp _dioServices = DioHttp._internal();
-  factory DioHttp() => _dioServices;
-  Map<String, dynamic> dioInformation = {};
+class DioRest {
+  static final DioRest _dioRest = DioRest._internal();
+  factory DioRest() => _dioRest;
   static Dio _dio = Dio();
 
-  DioHttp._internal() {
+  DioRest._internal() {
 
     _dio = Dio(BaseOptions(
       baseUrl: 'https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/',
