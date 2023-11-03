@@ -1,18 +1,25 @@
+import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 
 class DioRest {
   static final DioRest _dioRest = DioRest._internal();
+
   factory DioRest() => _dioRest;
   static Dio _dio = Dio();
 
   DioRest._internal() {
-
-    _dio = Dio(BaseOptions(
+    BaseOptions options = BaseOptions(
       baseUrl: 'https://api.beyoundi.link',
       headers: {
-        'Content-Type':'application/json',
+        "Accept": "application/json",
+        'Content-type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
       },
-    ));
+    );
+    _dio = Dio(options);
+    BrowserHttpClientAdapter adapter = BrowserHttpClientAdapter();
+    adapter.withCredentials = true;
+    _dio.httpClientAdapter = adapter;
     _dio.interceptors.add(DioInterceptor());
   }
 
@@ -34,10 +41,6 @@ class DioInterceptor extends Interceptor {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-
-    print("에러1");
-
-    print("에러2");
     super.onError(err, handler);
   }
 }
