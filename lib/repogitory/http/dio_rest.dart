@@ -8,11 +8,9 @@ class DioRest {
   DioRest._internal() {
 
     _dio = Dio(BaseOptions(
-      baseUrl: 'api.beyoundi.link',
+      baseUrl: 'https://api.beyoundi.link',
       headers: {
-        // 'Accept': 'application/json',
         'Content-Type':'application/json',
-        'Access-Control-Allow-Origin': '*',
       },
     ));
     _dio.interceptors.add(DioInterceptor());

@@ -30,23 +30,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     _appBarHeaderIndex = event.index;
 
     Dio dio = DioRest().to();
-    Dio dio2 = Dio(BaseOptions(
-        baseUrl: "https://www.google.com",
-        headers: {
-          "Content-Type" : "application/json"
-        }
-    ));
     print("실행");
-    dio.get("/info").then((value) {
+    dio.get("/").then((value) {
       print("되었다!");
       print(value);
     }).catchError((err) {
       print("에러발생 ");
       print(err);
-
-      dio2.get("").then((value) {
-        print("구글은 성공");
-      }).catchError((err) => print(err));
     });
 
     // http.get(Uri.parse("https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/info")).then((value) {
