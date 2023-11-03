@@ -59401,7 +59401,7 @@ s=$.afW()
 r=t.z
 q=A.ajo(A.Nt("https://www.google.com",A.aO(["Content-Type","application/json"],t.N,r)))
 A.eK("\uc2e4\ud589")
-s.zL(0,"info",r).aU(new A.SN(),t.P).ij(new A.SO(q))
+s.zL(0,"/info",r).aU(new A.SN(),t.P).ij(new A.SO(q))
 r=this.at
 if(!b.d)b.a.$1(new A.pQ(r))},
 Py(a,b){var s=a.ga2y(a)
@@ -65011,7 +65011,7 @@ r($,"asg","afL",()=>{var q=null
 return A.om(q,q,B.iG,q,q,q,q,q,q,q,q,28,q,q,B.eT,q,q,!0,q,q,q,q,q,q,q,q)})
 r($,"asf","afK",()=>{var q=null
 return A.om(q,q,B.i,q,q,q,q,q,q,q,q,16,q,q,B.eT,q,q,!0,q,q,q,q,q,q,q,q)})
-s($,"asL","afX",()=>{var q=A.aan(A.Nt("https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/",A.aO(["Content-Type","application/json","Access-Control-Allow-Origin","*"],t.N,t.z)))
+s($,"asL","afX",()=>{var q=A.aan(A.Nt("api.beyoundi.link",A.aO(["Content-Type","application/json","Access-Control-Allow-Origin","*"],t.N,t.z)))
 $.ajp=q
 q=q.Hq$
 q.D(q,new A.qz())
