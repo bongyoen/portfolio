@@ -8,7 +8,7 @@ class DioRest {
   DioRest._internal() {
 
     _dio = Dio(BaseOptions(
-      baseUrl: 'https://y7sxw6t4kh.execute-api.us-east-1.amazonaws.com/portfolioApi/',
+      baseUrl: 'api.beyoundi.link',
       headers: {
         // 'Accept': 'application/json',
         'Content-Type':'application/json',
