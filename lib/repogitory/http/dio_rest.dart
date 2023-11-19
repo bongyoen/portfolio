@@ -13,20 +13,14 @@ class DioRest {
       headers: {
         "Accept": "application/json",
         'Content-type': 'application/json',
-        // 'X-Requested-With': 'XMLHttpRequest',
-        // 'Access-Control-Allow-Credentials': 'true'
       },
     );
+
     _dio = Dio(options);
-    // BrowserHttpClientAdapter adapter = BrowserHttpClientAdapter();
-    // adapter.withCredentials = true;
-    // _dio.httpClientAdapter = adapter;
     _dio.interceptors.add(DioInterceptor());
   }
 
-  Dio to() {
-    return _dio;
-  }
+  Dio to() => _dio;
 }
 
 class DioInterceptor extends Interceptor {

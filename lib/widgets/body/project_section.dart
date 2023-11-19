@@ -5,14 +5,12 @@ class ProjectSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(padding: EdgeInsets.only(bottom: 80),
+    return const Padding(
+      padding: EdgeInsets.only(bottom: 80),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("projectIntro")
-        ],
+        children: [Text("projectIntro")],
       ),
     );
   }
-
 }
