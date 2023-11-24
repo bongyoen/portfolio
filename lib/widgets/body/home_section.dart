@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/utils/app_extensions.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
 
 class HomeSection extends StatelessWidget {
@@ -44,7 +43,19 @@ class HomeSection extends StatelessWidget {
               //     "로컬개발 및 테스트를 위해 VPC내부에 외부에 공개하지 않는 EC2 인스턴스를 생성하며 개발 시 ssh연결을 통한 DB접속 및 테스트를 진행합니다.",
               size: 20,
               color: Colors.white),
-          Image.asset('assets/img/map.png'),
+          // InteractiveViewer(
+          //     constrained: true,
+          //     child: Image.asset('assets/img/map.png',)),
+
+          GestureDetector(
+            onTap: () async {
+              await showDialog(
+                  context: context,
+                  builder: (_) => const ImageDialog()
+              );
+            },
+            child: Image.asset('assets/img/map.png',),
+          ),
           const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -102,6 +113,19 @@ class HomeSection extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ImageDialog extends StatelessWidget {
+  const ImageDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: InteractiveViewer(
+          constrained: true,
+          child: Image.asset('assets/img/map.png',)),
     );
   }
 }
