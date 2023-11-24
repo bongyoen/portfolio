@@ -18,6 +18,7 @@ dependencies:
   universal_html: ^2.2.4
   dio: ^5.3.3
   http: ^1.1.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +29,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/img/
