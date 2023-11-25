@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/home_bloc/home_event.dart';
 import 'package:portfolio/bloc/home_bloc/home_state.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/utils/app_enums.dart';
 
@@ -21,6 +21,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     ChangeAppBarHeadersIndex event,
     Emitter<HomeState> emit,
   ) {
+    print("AppBarHeadersIndexChanged 실행");
     _appBarHeaderIndex = event.index;
     emit(AppBarHeadersIndexChanged(_appBarHeaderIndex));
   }

@@ -1,7 +1,3 @@
-import 'dart:js_interop';
-
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
 
@@ -40,7 +36,6 @@ class AboutMeSection extends StatelessWidget {
                     "저는 웹사이트와 응용프로그램 개발에 관심이 많으며, 객체지향 프로그래밍을 선호합니다.\n"
                     "시스템의 구성과 workflow, 방법론, 디자인패턴 등을 중요하게 생각하며,\n"
                     "이를 바탕으로 새로운 프레임워크와 언어를 학습하고 적용하고 있습니다.",
-
                 size: 20,
                 color: Colors.white),
             LogoSection(

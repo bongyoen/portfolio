@@ -32,7 +32,7 @@ extension DeviceTypeExtension on DeviceType {
     return 768;
   }
 
-  Widget widthType(BuildContext context, Widget mobile, Widget desktop) {
+  Widget deviceType(BuildContext context, Widget mobile, Widget desktop) {
     return context.width < 768 ? mobile : desktop;
   }
 

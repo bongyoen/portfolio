@@ -13,7 +13,7 @@ class ApiProvider {
 
   Future<Response> getInfo() => _dio.get("/info");
 
-  Future<Response> getWebHeaders() => _dio.get("/board/webHeaders");
+  Future<Response> getWebHeaders() => _dio.get("/menu/webHeaders");
 
   Future<Response> getPortfolioInfo() => _dio.get("/board/portfolioInfo");
 

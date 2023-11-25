@@ -1,116 +1,66 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/bloc/home_bloc/home_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
+import 'package:portfolio/bloc/test_bloc/test_state.dart';
 import 'package:portfolio/core/utils/app_extensions.dart';
-import 'package:portfolio/repogitory/http/dio_rest.dart';
 import 'package:portfolio/widgets/body/career_section.dart';
 import 'package:portfolio/widgets/body/contract_section.dart';
-import 'package:portfolio/widgets/body/project_section.dart';
 
-import '../../bloc/home_bloc/home_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../bloc/test_bloc/test_event.dart';
+import '../app_bar/vertical_menu_cross_fade.dart';
 import 'about_me_section.dart';
 import 'home_section.dart';
 
-class HomeBody extends StatefulWidget {
+var isFirst = false;
+
+class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomeBodyState();
-}
+  Widget build(BuildContext context) {
+    ScrollController controller = ScrollController();
+    controller.addListener(() {
+      context.read<TestBloc>().add(ChangeScrollAxis(controller: controller));
+    });
 
-class _HomeBodyState extends State<HomeBody> {
-  final ScrollController _controller = ScrollController();
-
-  final keyArr = [
-    GlobalKey(),
-    GlobalKey(),
-    GlobalKey(),
-    GlobalKey(),
-    GlobalKey()
-  ];
-
-  // void _initListenerForInteractWithHeaderIndex() {
-  //   double introHeight = keyArr[0].currentContext!.size!.height;
-  //   double aboutHeight = keyArr[1].currentContext!.size!.height;
-  //   double projectHeight = keyArr[2].currentContext!.size!.height;
-  //   double careerHeight = keyArr[3].currentContext!.size!.height;
-  //   double contactHeight = keyArr[4].currentContext!.size!.height;
-  //
-  //   _controller.addListener(() {
-  //     double controllerHeight = _controller.offset;
-  //
-  //     if (_controller.position.extentAfter == 0.0) {
-  //       context.read<HomeBloc>().add(ChangeAppBarHeadersColorByColor(3));
-  //     } else if (controllerHeight < introHeight) {
-  //       context.read<HomeBloc>().add(ChangeAppBarHeadersColorByColor(0));
-  //     } else if (controllerHeight < (introHeight + aboutHeight)) {
-  //       context.read<HomeBloc>().add(ChangeAppBarHeadersColorByColor(1));
-  //     } else if (controllerHeight <
-  //         (introHeight + aboutHeight + projectHeight)) {
-  //       context.read<HomeBloc>().add(ChangeAppBarHeadersColorByColor(2));
-  //     } else if (controllerHeight <
-  //         (introHeight +
-  //             aboutHeight +
-  //             projectHeight +
-  //             careerHeight +
-  //             contactHeight)) {
-  //       context.read<HomeBloc>().add(ChangeAppBarHeadersColorByColor(2));
-  //     } else {
-  //       context.read<HomeBloc>().add(ChangeAppBarHeadersColorByColor(3));
-  //     }
-  //   });
-  // }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+    return BlocBuilder<TestBloc, TestState>(
+      builder: (context, state) {
+        return Stack(
+          children: [
+            _loadingWidget(
+                controller: controller, state: state, context: context)
+          ],
+        );
+      },
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-
-
-
-    return BlocListener<HomeBloc, HomeState>(
-      listener: (context, state) {
-        if (state is AppBarHeadersIndexChanged) {
-          Navigator.of(context).maybePop();
-          const duration = Duration(milliseconds: 300);
-
-          Scrollable.ensureVisible(keyArr[state.index].currentContext!,
-              duration: duration);
-        }
-      },
-      child: Stack(
+  Widget _loadingWidget(
+      {required ScrollController controller,
+      required TestState state,
+      required BuildContext context}) {
+    if (state is TestApiProvider) {
+      return Stack(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: context.width * .08),
             child: SingleChildScrollView(
-              controller: _controller,
+              controller: controller,
               child: Column(
                 children: [
-                  HomeSection(key: keyArr[0]),
-                  AboutMeSection(
-                    key: keyArr[1],
-                  ),
-                  ProjectSection(
-                    key: keyArr[2],
-                  ),
-                  CareerSection(
-                    key: keyArr[3],
-                  ),
-                  ContractSection(
-                    key: keyArr[4],
-                  )
+                  HomeSection(key: state.headerNameKeys[0]),
+                  AboutMeSection(key: state.headerNameKeys[1]),
+                  CareerSection(key: state.headerNameKeys[2]),
+                  ContractSection(key: state.headerNameKeys[3]),
                 ],
               ),
             ),
-          )
+          ),
+          const VerticalMenuCrossFade()
         ],
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }

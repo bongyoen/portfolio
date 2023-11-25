@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:portfolio/repogitory/api_provider.dart';
+import 'package:flutter/cupertino.dart';
 
 abstract class TestState extends Equatable {
   @override
@@ -9,9 +9,24 @@ abstract class TestState extends Equatable {
 class TestInitial extends TestState {}
 
 class TestApiProvider extends TestState {
-  final Map<String, String> _title;
+  final List<String> headerNames;
+  final List<GlobalKey> headerNameKeys;
+  final int index;
+  final bool isOpenMenu;
 
-  TestApiProvider(this._title);
+  TestApiProvider(
+      {required this.headerNames,
+      required this.index,
+      required this.headerNameKeys,
+      required this.isOpenMenu});
 
-  Map<String, String> get titleMap => _title;
+  @override
+  List<Object?> get props => [index, isOpenMenu];
+}
+
+class ChangeHeaderBtnState extends TestState {
+  final List<String> _title;
+  final int _index;
+
+  ChangeHeaderBtnState(this._title, this._index);
 }

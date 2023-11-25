@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/core/utils/app_enums.dart';
 import 'package:portfolio/core/utils/app_extensions.dart';
 import 'package:portfolio/core/utils/app_strings.dart';
 import 'package:portfolio/core/utils/app_styles.dart';
