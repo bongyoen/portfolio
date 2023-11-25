@@ -9,8 +9,8 @@ extension AppBarHeaderExtension on AppBarHeaders {
         return 'Home';
       case AppBarHeaders.aboutMe:
         return 'About me';
-      case AppBarHeaders.projects:
-        return 'Projects';
+      // case AppBarHeaders.projects:
+      //   return 'Projects';
       case AppBarHeaders.career:
         return 'Career';
       case AppBarHeaders.contact:
@@ -25,34 +25,22 @@ extension MediaQueryExtension on BuildContext {
   double get height => _size.height;
 }
 
+enum DeviceType { desktop }
+
 extension DeviceTypeExtension on DeviceType {
-  int getMinWidth() {
-    switch (this) {
-      case DeviceType.mobile:
-        return 320;
-      case DeviceType.ipad:
-        return 481;
-      case DeviceType.smallScreenLaptop:
-        return 769;
-      case DeviceType.largeScreenDesktop:
-        return 1025;
-      case DeviceType.extraLargeTV:
-        return 1201;
-    }
+  int getMaxWidth() {
+    return 768;
   }
 
-  int getMaxWidth() {
-    switch (this) {
-      case DeviceType.mobile:
-        return 480;
-      case DeviceType.ipad:
-        return 768;
-      case DeviceType.smallScreenLaptop:
-        return 1024;
-      case DeviceType.largeScreenDesktop:
-        return 1200;
-      case DeviceType.extraLargeTV:
-        return 3840; // any number more than 1200
+  Widget widthType(BuildContext context, Widget mobile, Widget desktop) {
+    return context.width < 768 ? mobile : desktop;
+  }
+
+  double getHorizontalPadding(BuildContext context) {
+    if (context.width < DeviceType.desktop.getMaxWidth()) {
+      return context.width * .03;
+    } else {
+      return context.width * .08;
     }
   }
 }

@@ -14,7 +14,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
         color: AppColors.appBarColor,
         padding: EdgeInsets.symmetric(
-          horizontal: _getHorizontalPadding(context),
+          horizontal: DeviceType.desktop.getHorizontalPadding(context),
         ),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,12 +24,4 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(80);
-
-  double _getHorizontalPadding(BuildContext context) {
-    if (context.width < DeviceType.ipad.getMaxWidth()) {
-      return context.width * .03;
-    } else {
-      return context.width * .08;
-    }
-  }
 }

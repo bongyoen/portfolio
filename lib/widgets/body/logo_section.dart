@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
 
@@ -20,16 +19,17 @@ class LogoSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const WhiteNormalTxt(txt: "Skill", size: 30, color: Colors.white),
+          const WhiteNormalTxt(txt: "SKILL", size: 40, color: Colors.white),
           CarouselSlider.builder(
             itemCount: items.length,
-            options:
-            CarouselOptions(autoPlay: true, height: 180, viewportFraction: 0.15),
+            options: CarouselOptions(
+              autoPlay: true,
+              height: 180,
+              viewportFraction: 0.30,
+              autoPlayInterval: const Duration(milliseconds: 1800),
+            ),
             itemBuilder: (context, index, realIndex) {
-              return SizedBox(
-                  width: 120,
-                  child: carouseEq(items[index]['image']!, items[index]['name']!)
-              );
+              return carouseEq(items[index]['image']!, items[index]['name']!);
             },
           )
         ],
@@ -41,10 +41,13 @@ class LogoSection extends StatelessWidget {
 Widget carouseEq(String path, String txt) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
-     mainAxisAlignment: MainAxisAlignment.spaceAround,
-     children: [
-       Image.asset(path,width: 100,),
-       WhiteNormalTxt(txt: txt, size: 20, color: Colors.white)
-     ],
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+        child: Image.asset(path, height: 100),
+      ),
+      WhiteNormalTxt(txt: txt, size: 20, color: Colors.white)
+    ],
   );
 }

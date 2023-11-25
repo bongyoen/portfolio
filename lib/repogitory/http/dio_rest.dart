@@ -1,4 +1,3 @@
-import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 
 class DioRest {
@@ -9,7 +8,8 @@ class DioRest {
 
   DioRest._internal() {
     BaseOptions options = BaseOptions(
-      baseUrl: 'https://api.beyoundi.link',
+      // baseUrl: 'https://api.beyoundi.link',
+      baseUrl: 'http://localhost:8083',
       headers: {
         "Accept": "application/json",
         'Content-type': 'application/json',

@@ -32,7 +32,7 @@ class HomeSection extends StatelessWidget {
             ],
           ),
           const WhiteNormalTxt(
-              txt: "How Make This Portfolio?", size: 50, color: Colors.white),
+              txt: "How can I make a portfolio?", size: 50, color: Colors.white),
           const WhiteNormalTxt(
               txt: "서버리스 기반의 고가용성 웹어플리케이션",
 
