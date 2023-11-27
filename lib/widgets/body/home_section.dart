@@ -11,6 +11,7 @@ class HomeSection extends StatelessWidget {
       child: Column(
         children: [
           const Row(
+
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

@@ -11,7 +11,6 @@ class ApiProvider {
 
   static final Dio _dio = DioRest().to();
 
-  Future<Response> getInfo() => _dio.get("/info");
 
   Future<Response> getWebHeaders() => _dio.get("/menu/webHeaders");
 
