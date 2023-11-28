@@ -59,7 +59,7 @@ class HomeSection extends StatelessWidget {
             },
             child: BlocBuilder<TestBloc, TestState>(
               builder: (context, state) {
-                if(state is TestApiProvider) {
+                if (state is TestApiProvider) {
                   return Image.network(state.severlessMap["image"]!);
                 }
                 return Container();
