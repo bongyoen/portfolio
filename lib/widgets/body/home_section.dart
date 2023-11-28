@@ -9,6 +9,8 @@ class HomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var severlessMap = context.read<TestBloc>().severlessMap;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 80),
       child: Column(
@@ -55,7 +57,10 @@ class HomeSection extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               await showDialog(
-                  context: context, builder: (_) => const ImageDialog());
+                  context: context,
+                  builder: (_) => ImageDialog(
+                        severlessMap: severlessMap,
+                      ));
             },
             child: BlocBuilder<TestBloc, TestState>(
               builder: (context, state) {
@@ -128,16 +133,17 @@ class HomeSection extends StatelessWidget {
 }
 
 class ImageDialog extends StatelessWidget {
-  const ImageDialog({super.key});
+  final Map<String, String> severlessMap;
+
+  const ImageDialog({super.key, required this.severlessMap});
 
   @override
   Widget build(BuildContext context) {
+    if (severlessMap == null) return Container();
+
     return Dialog(
       child: InteractiveViewer(
-          constrained: true,
-          child: Image.asset(
-            'assets/img/map.png',
-          )),
+          constrained: true, child: Image.network(severlessMap["image"]!)),
     );
   }
 }
