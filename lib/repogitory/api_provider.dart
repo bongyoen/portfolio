@@ -22,6 +22,6 @@ class ApiProvider {
 
   Future<Response> getCarrer() => _dio.get("/board/getCarrer");
 
-  Future<Response> postImageUrl(String name) =>
-      _dio.post("/resource/image", data: {"name": name});
+  Future<Response> postImageUrl(String name, String extension) =>
+      _dio.post("/resource/image", data: {"name": name, "extension": extension});
 }

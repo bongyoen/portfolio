@@ -12,32 +12,35 @@ class HamburgerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TestBloc, TestState>(
       builder: (context, state) {
+
         if (state is TestInitial) {
           context.read<TestBloc>().add(TestAction());
           return const Text("...loading");
         }
-
-        return SizedBox(
-          width: 40,
-          child: AnimatedCrossFade(
-            crossFadeState: context.read<TestBloc>().isOpenMenu
-                ? CrossFadeState.showSecond
-                : CrossFadeState.showFirst,
-            firstChild: TextButton(
-              onPressed: () {
-                context.read<TestBloc>().add(ChangeHamburgerMenu());
-              },
-              child: const Icon(Icons.menu),
+        if (state is TestApiProvider) {
+          return SizedBox(
+            width: 40,
+            child: AnimatedCrossFade(
+              crossFadeState: context.read<TestBloc>().isOpenMenu
+                  ? CrossFadeState.showSecond
+                  : CrossFadeState.showFirst,
+              firstChild: TextButton(
+                onPressed: () {
+                  context.read<TestBloc>().add(ChangeHamburgerMenu());
+                },
+                child: const Icon(Icons.menu),
+              ),
+              secondChild: TextButton(
+                onPressed: () {
+                  context.read<TestBloc>().add(ChangeHamburgerMenu());
+                },
+                child: const Icon(Icons.close),
+              ),
+              duration: const Duration(milliseconds: 200),
             ),
-            secondChild: TextButton(
-              onPressed: () {
-                context.read<TestBloc>().add(ChangeHamburgerMenu());
-              },
-              child: const Icon(Icons.close),
-            ),
-            duration: const Duration(milliseconds: 200),
-          ),
-        );
+          );
+        }
+        return Container();
       },
     );
   }

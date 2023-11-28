@@ -20,8 +20,11 @@ class TestBloc extends Bloc<TestEvent, TestState> {
   List<String> headerNames = [];
   List<GlobalKey> headerNameKeys = [];
   bool _isOpenMenu = false;
+  List<Map<String, String>> killLogos = [];
+  Map<String, String> severlessMap = {"image": ""};
 
   int get appBarHeaderIndex => _appBarHeaderIndex;
+
   bool get isOpenMenu => _isOpenMenu;
 
   FutureOr<void> _changeHamburgerMenu(
@@ -31,27 +34,55 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         headerNames: headerNames,
         index: _appBarHeaderIndex,
         headerNameKeys: headerNameKeys,
-        isOpenMenu: _isOpenMenu));
+        isOpenMenu: _isOpenMenu,
+        skillLogos: killLogos,
+        severlessMap: severlessMap));
   }
 
   FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
-    Response test = await _apiProvider.getInfo();
-    print(test.data);
+    severlessMap["image"] =
+        (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
     Response response = await _apiProvider.getWebHeaders();
-
+    killLogos = _getSkillLogo();
     List<String> headerNameList =
         List<String>.from(response.data['headerNames'] as List);
 
-    headerNames = headerNameList;
+    headerNames = headerNameList; 
 
-    if (headerNameKeys.isEmpty) {
+    if (headerNameKeys.isEmpty) { 
       headerNameKeys = headerNames.map((e) => GlobalKey()).toList();
     }
     emit(TestApiProvider(
         headerNames: headerNames,
         index: _appBarHeaderIndex,
         headerNameKeys: headerNameKeys,
-        isOpenMenu: _isOpenMenu));
+        isOpenMenu: _isOpenMenu,
+        skillLogos: killLogos,
+        severlessMap: severlessMap));
+  }
+
+  List<Map<String, String>> _getSkillLogo() {
+    final bearItem = [
+      {"name": "jira", "extension": "png", "image": ""},
+      {"name": "react", "extension": "png", "image": ""},
+      {"name": "angular", "extension": "png", "image": ""},
+      {"name": "aws", "extension": "png", "image": ""},
+      {"name": "electron", "extension": "png", "image": ""},
+      {"name": "flutter", "extension": "png", "image": ""},
+      {"name": "git", "extension": "png", "image": ""},
+      {"name": "maria", "extension": "png", "image": ""},
+      {"name": "redmine", "extension": "png", "image": ""},
+      {"name": "ts", "extension": "png", "image": ""},
+      {"name": "mysql", "extension": "png", "image": ""},
+    ];
+
+    for (Map<String, String> value in bearItem) {
+      _apiProvider.postImageUrl(value["name"]!, value["extension"]!).then(
+          (response) =>
+              value["image"] = response.data["preSingedUrl"] as String);
+    }
+
+    return bearItem;
   }
 
   FutureOr<void> _changeHeaderIndex(
@@ -73,7 +104,9 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         headerNames: headerNames,
         index: _appBarHeaderIndex,
         headerNameKeys: headerNameKeys,
-        isOpenMenu: _isOpenMenu));
+        isOpenMenu: _isOpenMenu,
+        skillLogos: killLogos,
+        severlessMap: severlessMap));
   }
 
   bool test1 = false;
@@ -87,7 +120,10 @@ class TestBloc extends Bloc<TestEvent, TestState> {
           headerNames: headerNames,
           index: _appBarHeaderIndex,
           headerNameKeys: headerNameKeys,
-          isOpenMenu: _isOpenMenu));
+          isOpenMenu: _isOpenMenu,
+          skillLogos: killLogos,
+          severlessMap: severlessMap));
+
       return;
     }
 
@@ -102,7 +138,9 @@ class TestBloc extends Bloc<TestEvent, TestState> {
             headerNames: headerNames,
             index: _appBarHeaderIndex,
             headerNameKeys: headerNameKeys,
-            isOpenMenu: _isOpenMenu));
+            isOpenMenu: _isOpenMenu,
+            skillLogos: killLogos,
+            severlessMap: severlessMap));
 
         break;
       }

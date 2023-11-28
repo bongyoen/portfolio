@@ -31,6 +31,7 @@ class AboutMeSection extends StatelessWidget {
           children: [
             const WhiteNormalTxt(
                 txt: "About Me", size: 60, color: Colors.deepPurpleAccent),
+
             const WhiteNormalTxt(
                 txt: "안녕하세요! 저는 플스텍 웹개발자로서 서울에서 활동하고 있는 김봉연입니다.\n"
                     "저는 웹사이트와 응용프로그램 개발에 관심이 많으며, 객체지향 프로그래밍을 선호합니다.\n"

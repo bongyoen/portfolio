@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
+import 'package:portfolio/bloc/test_bloc/test_state.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
 
 class HomeSection extends StatelessWidget {
@@ -11,7 +14,6 @@ class HomeSection extends StatelessWidget {
       child: Column(
         children: [
           const Row(
-
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -33,7 +35,9 @@ class HomeSection extends StatelessWidget {
             ],
           ),
           const WhiteNormalTxt(
-              txt: "How can I make a portfolio?", size: 50, color: Colors.white),
+              txt: "How can I make a portfolio?",
+              size: 50,
+              color: Colors.white),
           const WhiteNormalTxt(
               txt: "서버리스 기반의 고가용성 웹어플리케이션",
 
@@ -51,11 +55,16 @@ class HomeSection extends StatelessWidget {
           GestureDetector(
             onTap: () async {
               await showDialog(
-                  context: context,
-                  builder: (_) => const ImageDialog()
-              );
+                  context: context, builder: (_) => const ImageDialog());
             },
-            child: Image.asset('assets/img/map.png',),
+            child: BlocBuilder<TestBloc, TestState>(
+              builder: (context, state) {
+                if(state is TestApiProvider) {
+                  return Image.network(state.severlessMap["image"]!);
+                }
+                return Container();
+              },
+            ),
           ),
           const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -126,7 +135,9 @@ class ImageDialog extends StatelessWidget {
     return Dialog(
       child: InteractiveViewer(
           constrained: true,
-          child: Image.asset('assets/img/map.png',)),
+          child: Image.asset(
+            'assets/img/map.png',
+          )),
     );
   }
 }
