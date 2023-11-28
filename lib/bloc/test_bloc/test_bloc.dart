@@ -36,6 +36,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
 
   FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
     Response response = await _apiProvider.getWebHeaders();
+    Response test = await _apiProvider.getInfo();
 
     List<String> headerNameList =
         List<String>.from(response.data['headerNames'] as List);
