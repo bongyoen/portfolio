@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/board_bloc/board_bloc.dart';
+import 'package:portfolio/bloc/board_bloc/board_state.dart';
 import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
 import 'package:portfolio/bloc/test_bloc/test_state.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
+
+import '../../bloc/board_bloc/board_event.dart';
 
 class HomeSection extends StatelessWidget {
   const HomeSection({super.key});
@@ -71,60 +75,39 @@ class HomeSection extends StatelessWidget {
               },
             ),
           ),
-          const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              WhiteNormalTxt(
-                  txt: "FRONT_END", size: 20, color: Colors.deepPurpleAccent),
-              WhiteNormalTxt(
-                  txt: " - FLUTTER: BLOC패턴을 기반으로 웹을 제작.",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt: " - AMPLIFY: frontEnd에 특화, Cloud Front 이용, https 및 배포용이",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt: "BACK_END", size: 20, color: Colors.deepPurpleAccent),
-              WhiteNormalTxt(
-                  txt:
-                      " - APP RUNNER: 일반 서버나 EC2의 경우 최소한의 설정 및 유지관리가 필요하나, 완전관리형 서비스로 유지보수의 간편함.",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt:
-                      " - API GATEWAY: API 관리용의성과 AppRunner부하 시 Rambda분리와 Api관리를 위함",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt: "BUILD", size: 20, color: Colors.deepPurpleAccent),
-              WhiteNormalTxt(
-                  txt:
-                      " - PUSH이벤트 시에 GIT_ACTION으로 Amplify와 AppRunner에 배포합니다. Image는 ECR에 저장 후 gitAction의 pipeLine설정해 DI/DC를 구축했습니다.",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt: "DB", size: 20, color: Colors.deepPurpleAccent),
-              WhiteNormalTxt(
-                  txt:
-                      " - PSQL: AURORA를 사용하려했지만 비용문제로 인해, 차선으로 현 시점 MYSQL보다 이점이 있는 PSQL을 사용.",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt: "RESOURCE", size: 20, color: Colors.deepPurpleAccent),
-              WhiteNormalTxt(
-                  txt:
-                      " - S3: 미디어 및 파일들을 처리합니다. 직접적인 노출을 피하고자 BACK에서 PRE-SIGNED URL을 생성해 보여주는 방식을 채택했습니다.",
-                  size: 18,
-                  color: Colors.white),
-              WhiteNormalTxt(
-                  txt: "MAINTENANCE", size: 20, color: Colors.deepPurpleAccent),
-              WhiteNormalTxt(
-                  txt:
-                      " - EC2: 모든 구성이 VPC내부에 존재합니다. 개발자 또한 직접이 불가하기에 외부에 공개하지 않는 EC2를 내부에 두어 SSH를 통한 제어를 가능하게합니다.",
-                  size: 18,
-                  color: Colors.white),
-            ],
+          BlocBuilder<BoardBloc, BoardState>(
+            builder: (context, state) {
+              if (state is BoardInitial) {
+                context.read<BoardBloc>().add(GetHMC003Action());
+                return const Text("loading...");
+              }
+              if (state is BoardLoad) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ...state.hmc003List.map((board) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          WhiteNormalTxt(
+                              txt: board.boardNm,
+                              size: 20,
+                              color: Colors.deepPurpleAccent),
+                          ...board.boardRsltDtls.map((e) =>
+                              WhiteNormalTxt(
+                                  txt: "- ${e.boardDtlTxt}",
+                                  size: 18,
+                                  color: Colors.white)
+                          ).toList()
+                        ],
+                      );
+                    }).toList()
+                  ],
+                );
+              }
+
+              return Container();
+            },
           ),
         ],
       ),

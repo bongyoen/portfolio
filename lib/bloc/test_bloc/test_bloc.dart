@@ -40,16 +40,30 @@ class TestBloc extends Bloc<TestEvent, TestState> {
   }
 
   FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
+    // _apiProvider.postBoardByCl("HMC003").then((value) {
+    //   print("\n\n\nvalue.data : ${value.data}\n\n\n\n");
+    //   print("(value.data as List) : ${(value.data as List)}\n\n\n\n");
+    //   List<BoardRslt> boardRslts =
+    //       (value.data as List).map((e) => BoardRslt.fromJson(e)).toList();
+    //
+    //   for (var value1 in boardRslts) {
+    //     for (var value in value1.boardRsltDtls) {
+    //       print(value.boardDtlTxt);
+    //     }
+    //   }
+    // });
+
     severlessMap["image"] =
         (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
+
     Response response = await _apiProvider.getWebHeaders();
     killLogos = _getSkillLogo();
     List<String> headerNameList =
         List<String>.from(response.data['headerNames'] as List);
 
-    headerNames = headerNameList; 
+    headerNames = headerNameList;
 
-    if (headerNameKeys.isEmpty) { 
+    if (headerNameKeys.isEmpty) {
       headerNameKeys = headerNames.map((e) => GlobalKey()).toList();
     }
     emit(TestApiProvider(

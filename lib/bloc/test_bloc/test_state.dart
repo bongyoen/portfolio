@@ -22,8 +22,7 @@ class TestApiProvider extends TestState {
       required this.headerNameKeys,
       required this.isOpenMenu,
       required this.skillLogos,
-      required this.severlessMap
-      });
+      required this.severlessMap});
 
   @override
   List<Object?> get props => [index, isOpenMenu, headerNameKeys, skillLogos];

@@ -4,6 +4,8 @@ import 'package:portfolio/bloc/home_bloc/home_bloc.dart';
 import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
 import 'package:portfolio/views/home_view.dart';
 
+import 'bloc/board_bloc/board_bloc.dart';
+
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
 
@@ -19,6 +21,9 @@ class PortfolioApp extends StatelessWidget {
         ),
         BlocProvider<TestBloc>(
           create: (context) => TestBloc(),
+        ),
+        BlocProvider<BoardBloc>(
+          create: (context) => BoardBloc(),
         ),
       ], child: const HomeView()),
       // home: BlocProvider<HomeBloc>(

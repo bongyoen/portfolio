@@ -8,8 +8,8 @@ class DioRest {
 
   DioRest._internal() {
     BaseOptions options = BaseOptions(
-      baseUrl: 'https://api.beyoundi.link',
-      // baseUrl: 'http://localhost:8083',
+      // baseUrl: 'https://api.beyoundi.link',
+      baseUrl: 'http://localhost:8083',
       headers: {
         "Accept": "application/json",
         'Content-type': 'application/json',

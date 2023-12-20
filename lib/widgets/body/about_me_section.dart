@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
 
+import '../../bloc/board_bloc/board_bloc.dart';
+import '../../bloc/board_bloc/board_event.dart';
+import '../../bloc/board_bloc/board_state.dart';
 import 'logo_section.dart';
 
 final bearItem = [
@@ -31,14 +35,19 @@ class AboutMeSection extends StatelessWidget {
           children: [
             const WhiteNormalTxt(
                 txt: "About Me", size: 60, color: Colors.deepPurpleAccent),
-
-            const WhiteNormalTxt(
-                txt: "안녕하세요! 저는 플스텍 웹개발자로서 서울에서 활동하고 있는 김봉연입니다.\n"
-                    "저는 웹사이트와 응용프로그램 개발에 관심이 많으며, 객체지향 프로그래밍을 선호합니다.\n"
-                    "시스템의 구성과 workflow, 방법론, 디자인패턴 등을 중요하게 생각하며,\n"
-                    "이를 바탕으로 새로운 프레임워크와 언어를 학습하고 적용하고 있습니다.",
-                size: 20,
-                color: Colors.white),
+            BlocBuilder<BoardBloc, BoardState>(
+              builder: (context, state) {
+                if (state is BoardLoad && state.amc001List.isNotEmpty) {
+                  return WhiteNormalTxt(
+                      txt: state.amc001List[0].boardRsltDtls[0].boardDtlTxt,
+                      size: 20,
+                      color: Colors.white);
+                } else {
+                  context.read<BoardBloc>().add(GetAMC001Action());
+                  return const Text("Loading...");
+                }
+              },
+            ),
             LogoSection(
               items: bearItem,
             )

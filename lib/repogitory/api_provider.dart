@@ -11,7 +11,6 @@ class ApiProvider {
 
   static final Dio _dio = DioRest().to();
 
-
   Future<Response> getInfo() => _dio.get("/info");
 
   Future<Response> getWebHeaders() => _dio.get("/menu/webHeaders");
@@ -22,6 +21,9 @@ class ApiProvider {
 
   Future<Response> getCarrer() => _dio.get("/board/getCarrer");
 
-  Future<Response> postImageUrl(String name, String extension) =>
-      _dio.post("/resource/image", data: {"name": name, "extension": extension});
+  Future<Response> postImageUrl(String name, String extension) => _dio
+      .post("/resource/image", data: {"name": name, "extension": extension});
+
+  Future<Response> postBoardByCl(String boardCl) =>
+      _dio.post("/board/getBoard", data: {"boardCl": boardCl});
 }
