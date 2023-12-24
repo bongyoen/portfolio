@@ -23,5 +23,3 @@ class ChangeScrollAxis extends TestEvent {
 
   ChangeScrollAxis({required this.controller});
 }
-
-class ChangeHamburgerMenu extends TestEvent {}

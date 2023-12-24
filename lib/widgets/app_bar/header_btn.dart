@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/core/utils/app_styles.dart';
 
-import '../../bloc/test_bloc/test_bloc.dart';
-import '../../bloc/test_bloc/test_event.dart';
+import '../../bloc/scroll_bloc/home_scroll_bloc.dart';
+import '../../bloc/scroll_bloc/home_scroll_event.dart';
 import '../../core/utils/app_colors.dart';
 
 class HeaderBtn extends StatelessWidget {
@@ -18,14 +18,14 @@ class HeaderBtn extends StatelessWidget {
     return TextButton(
         onPressed: () {
           context
-              .read<TestBloc>()
+              .read<HomeScrollBloc>()
               .add(ChangeHeaderIndex(index: headerIndex, context: context));
         },
         style: TextButton.styleFrom(
             textStyle: AppStyles.s16,
             backgroundColor: AppColors.appBarColor,
             foregroundColor: _getHeaderColor(
-                currentIndex: context.read<TestBloc>().appBarHeaderIndex,
+                currentIndex: context.read<HomeScrollBloc>().appBarHeaderIndex,
                 headerIndex: headerIndex)),
         child: Padding(
           padding: const EdgeInsets.symmetric(

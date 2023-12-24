@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/test_bloc/test_event.dart';
@@ -12,65 +11,28 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     on<TestAction>(_getTitle);
     on<ChangeHeaderIndex>(_changeHeaderIndex);
     on<ChangeScrollAxis>(_changeScrollAxis);
-    on<ChangeHamburgerMenu>(_changeHamburgerMenu);
+
+    _initialFunc();
+
   }
 
   final ApiProvider _apiProvider = ApiProvider();
-  int _appBarHeaderIndex = 0;
-  List<String> headerNames = [];
+  int appBarHeaderIndex = 0;
   List<GlobalKey> headerNameKeys = [];
-  bool _isOpenMenu = false;
   List<Map<String, String>> killLogos = [];
   Map<String, String> severlessMap = {"image": ""};
 
-  int get appBarHeaderIndex => _appBarHeaderIndex;
-
-  bool get isOpenMenu => _isOpenMenu;
-
-  FutureOr<void> _changeHamburgerMenu(
-      ChangeHamburgerMenu event, Emitter<TestState> emit) {
-    _isOpenMenu = !_isOpenMenu;
-    emit(TestApiProvider(
-        headerNames: headerNames,
-        index: _appBarHeaderIndex,
-        headerNameKeys: headerNameKeys,
-        isOpenMenu: _isOpenMenu,
-        skillLogos: killLogos,
-        severlessMap: severlessMap));
-  }
+  void _initialFunc() => add(TestAction());
 
   FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
-    // _apiProvider.postBoardByCl("HMC003").then((value) {
-    //   print("\n\n\nvalue.data : ${value.data}\n\n\n\n");
-    //   print("(value.data as List) : ${(value.data as List)}\n\n\n\n");
-    //   List<BoardRslt> boardRslts =
-    //       (value.data as List).map((e) => BoardRslt.fromJson(e)).toList();
-    //
-    //   for (var value1 in boardRslts) {
-    //     for (var value in value1.boardRsltDtls) {
-    //       print(value.boardDtlTxt);
-    //     }
-    //   }
-    // });
 
     severlessMap["image"] =
         (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
 
-    Response response = await _apiProvider.getWebHeaders();
     killLogos = _getSkillLogo();
-    List<String> headerNameList =
-        List<String>.from(response.data['headerNames'] as List);
 
-    headerNames = headerNameList;
-
-    if (headerNameKeys.isEmpty) {
-      headerNameKeys = headerNames.map((e) => GlobalKey()).toList();
-    }
     emit(TestApiProvider(
-        headerNames: headerNames,
-        index: _appBarHeaderIndex,
-        headerNameKeys: headerNameKeys,
-        isOpenMenu: _isOpenMenu,
+        index: appBarHeaderIndex,
         skillLogos: killLogos,
         severlessMap: severlessMap));
   }
@@ -101,24 +63,24 @@ class TestBloc extends Bloc<TestEvent, TestState> {
 
   FutureOr<void> _changeHeaderIndex(
       ChangeHeaderIndex event, Emitter<TestState> emit) {
-    _appBarHeaderIndex = event.index;
+    appBarHeaderIndex = event.index;
 
-    if (headerNameKeys.isEmpty) {
-      headerNameKeys = headerNames.map((e) => GlobalKey()).toList();
-    }
+    // if (headerNameKeys.isEmpty) {
+    //   headerNameKeys = headerNames.map((e) => GlobalKey()).toList();
+    // }
 
     Navigator.of(event.context).maybePop();
 
-    if (headerNameKeys[_appBarHeaderIndex].currentContext != null) {
+    if (headerNameKeys[appBarHeaderIndex].currentContext != null) {
       Scrollable.ensureVisible(
-          headerNameKeys[_appBarHeaderIndex].currentContext!,
+          headerNameKeys[appBarHeaderIndex].currentContext!,
           duration: const Duration(milliseconds: 300));
     }
     emit(TestApiProvider(
-        headerNames: headerNames,
-        index: _appBarHeaderIndex,
-        headerNameKeys: headerNameKeys,
-        isOpenMenu: _isOpenMenu,
+        // headerNames: headerNames,
+        index: appBarHeaderIndex,
+        // headerNameKeys: headerNameKeys,
+        // isOpenMenu: _isOpenMenu,
         skillLogos: killLogos,
         severlessMap: severlessMap));
   }
@@ -129,12 +91,12 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     double sumHeight = 0;
 
     if (event.controller.offset == event.controller.position.maxScrollExtent) {
-      _appBarHeaderIndex = headerNameKeys.length - 1;
+      appBarHeaderIndex = headerNameKeys.length - 1;
       emit(TestApiProvider(
-          headerNames: headerNames,
-          index: _appBarHeaderIndex,
-          headerNameKeys: headerNameKeys,
-          isOpenMenu: _isOpenMenu,
+          // headerNames: headerNames,
+          index: appBarHeaderIndex,
+          // headerNameKeys: headerNameKeys,
+          // isOpenMenu: _isOpenMenu,
           skillLogos: killLogos,
           severlessMap: severlessMap));
 
@@ -146,13 +108,13 @@ class TestBloc extends Bloc<TestEvent, TestState> {
 
       if (event.controller.offset < sumHeight) {
         int index = headerNameKeys.indexWhere((element) => element == key);
-        _appBarHeaderIndex = index;
+        appBarHeaderIndex = index;
 
         emit(TestApiProvider(
-            headerNames: headerNames,
-            index: _appBarHeaderIndex,
-            headerNameKeys: headerNameKeys,
-            isOpenMenu: _isOpenMenu,
+            // headerNames: headerNames,
+            index: appBarHeaderIndex,
+            // headerNameKeys: headerNameKeys,
+            // isOpenMenu: _isOpenMenu,
             skillLogos: killLogos,
             severlessMap: severlessMap));
 

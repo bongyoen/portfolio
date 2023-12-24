@@ -26,4 +26,13 @@ class ApiProvider {
 
   Future<Response> postBoardByCl(String boardCl) =>
       _dio.post("/board/getBoard", data: {"boardCl": boardCl});
+
+  Future<Response> postSendEmail(
+          String name, String email, String subject, String message) =>
+      _dio.post("/email/postSendEmail", data: {
+        "name": name,
+        "email": email,
+        "subject": subject,
+        "message": message
+      });
 }

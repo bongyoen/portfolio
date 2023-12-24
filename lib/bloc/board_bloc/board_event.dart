@@ -8,3 +8,5 @@ abstract class BoardEvent extends Equatable {
 class GetHMC003Action extends BoardEvent {}
 
 class GetAMC001Action extends BoardEvent {}
+
+class GetCRC001Action extends BoardEvent {}

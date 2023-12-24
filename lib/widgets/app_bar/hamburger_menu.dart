@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:portfolio/bloc/scroll_bloc/home_scroll_bloc.dart';
 
-import '../../bloc/test_bloc/test_bloc.dart';
-import '../../bloc/test_bloc/test_event.dart';
-import '../../bloc/test_bloc/test_state.dart';
+import '../../bloc/scroll_bloc/home_scroll_event.dart';
+import '../../bloc/scroll_bloc/home_scroll_state.dart';
 
 class HamburgerMenu extends StatelessWidget {
   const HamburgerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TestBloc, TestState>(
+    return BlocBuilder<HomeScrollBloc, HomeScrollState>(
       builder: (context, state) {
-
-        if (state is TestInitial) {
-          context.read<TestBloc>().add(TestAction());
-          return const Text("...loading");
-        }
-        if (state is TestApiProvider) {
+        if (state is ChangeScrollState) {
           return SizedBox(
             width: 40,
             child: AnimatedCrossFade(
-              crossFadeState: context.read<TestBloc>().isOpenMenu
+              crossFadeState: context.read<HomeScrollBloc>().isOpenMenu
                   ? CrossFadeState.showSecond
                   : CrossFadeState.showFirst,
               firstChild: TextButton(
                 onPressed: () {
-                  context.read<TestBloc>().add(ChangeHamburgerMenu());
+                  context.read<HomeScrollBloc>().add(ChangeHamburgerMenu());
                 },
                 child: const Icon(Icons.menu),
               ),
               secondChild: TextButton(
                 onPressed: () {
-                  context.read<TestBloc>().add(ChangeHamburgerMenu());
+                  context.read<HomeScrollBloc>().add(ChangeHamburgerMenu());
                 },
                 child: const Icon(Icons.close),
               ),

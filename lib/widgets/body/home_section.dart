@@ -5,8 +5,7 @@ import 'package:portfolio/bloc/board_bloc/board_state.dart';
 import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
 import 'package:portfolio/bloc/test_bloc/test_state.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
-
-import '../../bloc/board_bloc/board_event.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeSection extends StatelessWidget {
   const HomeSection({super.key});
@@ -77,10 +76,6 @@ class HomeSection extends StatelessWidget {
           ),
           BlocBuilder<BoardBloc, BoardState>(
             builder: (context, state) {
-              if (state is BoardInitial) {
-                context.read<BoardBloc>().add(GetHMC003Action());
-                return const Text("loading...");
-              }
               if (state is BoardLoad) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,12 +96,91 @@ class HomeSection extends StatelessWidget {
                           ).toList()
                         ],
                       );
-                    }).toList()
+                    }).toList(),
                   ],
                 );
               }
 
-              return Container();
+              return Shimmer.fromColors(
+                baseColor: Colors.grey,
+                highlightColor: Colors.white,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 500,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        height: 30,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      const SizedBox(height: 12),
+                    ]),
+              );;
             },
           ),
         ],

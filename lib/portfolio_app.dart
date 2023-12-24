@@ -5,6 +5,8 @@ import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
 import 'package:portfolio/views/home_view.dart';
 
 import 'bloc/board_bloc/board_bloc.dart';
+import 'bloc/email_bloc/email_bloc.dart';
+import 'bloc/scroll_bloc/home_scroll_bloc.dart';
 
 class PortfolioApp extends StatelessWidget {
   const PortfolioApp({super.key});
@@ -24,6 +26,12 @@ class PortfolioApp extends StatelessWidget {
         ),
         BlocProvider<BoardBloc>(
           create: (context) => BoardBloc(),
+        ),
+        BlocProvider<HomeScrollBloc>(
+          create: (context) => HomeScrollBloc(),
+        ),
+        BlocProvider<EmailBloc>(
+          create: (context) => EmailBloc(),
         ),
       ], child: const HomeView()),
       // home: BlocProvider<HomeBloc>(
