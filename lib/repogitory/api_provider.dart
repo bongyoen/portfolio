@@ -24,6 +24,9 @@ class ApiProvider {
   Future<Response> postImageUrl(String name, String extension) => _dio
       .post("/resource/image", data: {"name": name, "extension": extension});
 
+  Future<Response> postImagesUrl(List<Map<String, String>> bearItem) => _dio
+      .post("/resource/images", data: bearItem);
+
   Future<Response> postBoardByCl(String boardCl) =>
       _dio.post("/board/getBoard", data: {"boardCl": boardCl});
 

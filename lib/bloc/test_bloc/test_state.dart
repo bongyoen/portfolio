@@ -14,9 +14,7 @@ class TestApiProvider extends TestState {
 
   TestApiProvider(
       {
-        // required this.headerNames,
       required this.index,
-      // required this.headerNameKeys,
       required this.skillLogos,
       required this.severlessMap});
 

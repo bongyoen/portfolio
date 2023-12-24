@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/test_bloc/test_event.dart';
@@ -13,7 +14,6 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     on<ChangeScrollAxis>(_changeScrollAxis);
 
     _initialFunc();
-
   }
 
   final ApiProvider _apiProvider = ApiProvider();
@@ -25,11 +25,10 @@ class TestBloc extends Bloc<TestEvent, TestState> {
   void _initialFunc() => add(TestAction());
 
   FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
-
     severlessMap["image"] =
         (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
 
-    killLogos = _getSkillLogo();
+    killLogos = await _getSkillLogo();
 
     emit(TestApiProvider(
         index: appBarHeaderIndex,
@@ -37,7 +36,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         severlessMap: severlessMap));
   }
 
-  List<Map<String, String>> _getSkillLogo() {
+  Future<List<Map<String, String>>> _getSkillLogo() async {
     final bearItem = [
       {"name": "jira", "extension": "png", "image": ""},
       {"name": "react", "extension": "png", "image": ""},
@@ -52,10 +51,12 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       {"name": "mysql", "extension": "png", "image": ""},
     ];
 
-    for (Map<String, String> value in bearItem) {
-      _apiProvider.postImageUrl(value["name"]!, value["extension"]!).then(
-          (response) =>
-              value["image"] = response.data["preSingedUrl"] as String);
+    Response response = await _apiProvider.postImagesUrl(bearItem);
+
+    List<dynamic> imageList = response.data;
+
+    for (var i = 0; i < imageList.length; i++) {
+      bearItem[i]["image"] = imageList[i]["preSingedUrl"];
     }
 
     return bearItem;

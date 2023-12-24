@@ -85,7 +85,10 @@ Widget carouseEq(String path, String txt) {
     children: [
       Padding(
         padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: Image.network(path, height: 100),
+        child: Image.network(path, height: 100, loadingBuilder: (context, child, loadingProgress) {
+          if(loadingProgress != null) return Container(color: Colors.grey, width: 100, height: 100,);
+          return child;
+        },),
       ),
       WhiteNormalTxt(txt: txt, size: 20, color: Colors.white)
     ],

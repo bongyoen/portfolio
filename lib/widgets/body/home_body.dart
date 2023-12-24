@@ -6,7 +6,6 @@ import 'package:portfolio/core/utils/app_extensions.dart';
 import 'package:portfolio/widgets/body/career_section.dart';
 import 'package:portfolio/widgets/body/contract_section.dart';
 
-import '../../bloc/scroll_bloc/home_scroll_event.dart';
 import '../app_bar/vertical_menu_cross_fade.dart';
 import 'about_me_section.dart';
 import 'home_section.dart';
@@ -24,11 +23,11 @@ class _HomeBodyState extends State<HomeBody> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
-      context
-          .read<HomeScrollBloc>()
-          .add(ChangeScrollAxis(controller: controller));
-    });
+    // controller.addListener(() {
+    //   context
+    //       .read<HomeScrollBloc>()
+    //       .add(ChangeScrollAxis(controller: controller));
+    // });
   }
 
   @override

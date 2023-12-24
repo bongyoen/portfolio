@@ -20,8 +20,10 @@ class CareerSection extends StatelessWidget {
           children: [
             const WhiteNormalTxt(
                 txt: "Carrer", size: 60, color: Colors.deepPurpleAccent),
-            const WhiteNormalTxt(txt: "다양한 경험과 지식", size: 25, color: Colors.white),
-            const WhiteNormalTxt(txt: "DB, 프레임워크, 서버", size: 35, color: Colors.white),
+            const WhiteNormalTxt(
+                txt: "다양한 경험과 지식", size: 25, color: Colors.white),
+            const WhiteNormalTxt(
+                txt: "DB, 프레임워크, 서버", size: 35, color: Colors.white),
             SizedBox(
               child: BlocBuilder<BoardBloc, BoardState>(
                 builder: (context, state) {
@@ -33,11 +35,21 @@ class CareerSection extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              WhiteNormalTxt(
-                                  txt: e.boardNm,
-                                  size: 20,
-                                  color: Colors.white),
+                              Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: WhiteNormalTxt(
+                                      txt: e.boardNm,
+                                      size: 20,
+                                      color: Colors.white)),
                               ...e.boardRsltDtls.map((dtl) {
+                                if (e.boardRsltDtls[0] == dtl) {
+                                  return WhiteNormalTxt(
+                                    txt: "${dtl.boardDtlTxt}\n",
+                                    size: 15,
+                                    color: Colors.blue,
+                                  );
+                                }
+
                                 return WhiteNormalTxt(
                                     txt: "${dtl.boardDtlTxt}\n",
                                     size: 15,
