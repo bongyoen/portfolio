@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../bloc/board_bloc/board_bloc.dart';
 import '../../bloc/board_bloc/board_event.dart';
@@ -38,53 +37,49 @@ class AboutMeSection extends StatelessWidget {
                 txt: "About Me", size: 60, color: Colors.deepPurpleAccent),
             BlocBuilder<BoardBloc, BoardState>(
               builder: (context, state) {
-                if (state is BoardLoad && state.amc001List.isNotEmpty) {
+                if (state is! BoardInitial && state.amc001List.isNotEmpty) {
                   return WhiteNormalTxt(
                       txt: state.amc001List[0].boardRsltDtls[0].boardDtlTxt,
                       size: 20,
                       color: Colors.white);
                 } else {
                   context.read<BoardBloc>().add(GetAMC001Action());
-                  return Shimmer.fromColors(
-                    baseColor: Colors.grey,
-                    highlightColor: Colors.white,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 30,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          SizedBox(height: 12),
-                          Container(
-                            height: 30,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          SizedBox(height: 12),
-                          Container(
-                            height: 30,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          SizedBox(height: 12),
-                          Container(
-                            height: 30,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(12)),
-                          ),
-                          SizedBox(height: 12),
-                        ]),
-                  );
+                  return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 30,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(12)),
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                          height: 30,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(12)),
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                          height: 30,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(12)),
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                          height: 30,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(12)),
+                        ),
+                        SizedBox(height: 12),
+                      ]);
                 }
               },
             ),

@@ -12,7 +12,7 @@ class HamburgerMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScrollBloc, HomeScrollState>(
       builder: (context, state) {
-        if (state is ChangeScrollState) {
+        if (state is! HomeScrollInitial) {
           return SizedBox(
             width: 40,
             child: AnimatedCrossFade(

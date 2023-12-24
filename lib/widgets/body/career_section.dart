@@ -25,7 +25,7 @@ class CareerSection extends StatelessWidget {
             SizedBox(
               child: BlocBuilder<BoardBloc, BoardState>(
                 builder: (context, state) {
-                  if (state is BoardLoad && state.crc001List.isNotEmpty) {
+                  if (state is! BoardInitial && state.crc001List.isNotEmpty) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
