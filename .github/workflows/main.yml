@@ -23,7 +23,7 @@ jobs:
         run: flutter pub get
 
       - name: 🏭 Build Web Application
-        run: flutter build web --release
+        run: flutter build web --release --web-renderer html
 
       # (3)
       - name: Make copy of artifacts
