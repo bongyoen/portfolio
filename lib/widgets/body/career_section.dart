@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portfolio/bloc/board_bloc/board_event.dart';
 
 import '../../bloc/board_bloc/board_bloc.dart';
 import '../../bloc/board_bloc/board_state.dart';
@@ -61,7 +60,7 @@ class CareerSection extends StatelessWidget {
                       ],
                     );
                   } else {
-                    context.read<BoardBloc>().add(GetCRC001Action());
+                    // context.read<BoardBloc>().add(GetCRC001Action());
                     return Container();
                   }
                 },

@@ -9,8 +9,6 @@ extension AppBarHeaderExtension on AppBarHeaders {
         return 'Home';
       case AppBarHeaders.aboutMe:
         return 'About me';
-      // case AppBarHeaders.projects:
-      //   return 'Projects';
       case AppBarHeaders.career:
         return 'Career';
       case AppBarHeaders.contact:

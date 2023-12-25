@@ -66,10 +66,6 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       ChangeHeaderIndex event, Emitter<TestState> emit) {
     appBarHeaderIndex = event.index;
 
-    // if (headerNameKeys.isEmpty) {
-    //   headerNameKeys = headerNames.map((e) => GlobalKey()).toList();
-    // }
-
     Navigator.of(event.context).maybePop();
 
     if (headerNameKeys[appBarHeaderIndex].currentContext != null) {
@@ -78,10 +74,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
           duration: const Duration(milliseconds: 300));
     }
     emit(TestApiProvider(
-        // headerNames: headerNames,
         index: appBarHeaderIndex,
-        // headerNameKeys: headerNameKeys,
-        // isOpenMenu: _isOpenMenu,
         skillLogos: killLogos,
         severlessMap: severlessMap));
   }
@@ -94,10 +87,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     if (event.controller.offset == event.controller.position.maxScrollExtent) {
       appBarHeaderIndex = headerNameKeys.length - 1;
       emit(TestApiProvider(
-          // headerNames: headerNames,
           index: appBarHeaderIndex,
-          // headerNameKeys: headerNameKeys,
-          // isOpenMenu: _isOpenMenu,
           skillLogos: killLogos,
           severlessMap: severlessMap));
 
@@ -112,10 +102,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         appBarHeaderIndex = index;
 
         emit(TestApiProvider(
-            // headerNames: headerNames,
             index: appBarHeaderIndex,
-            // headerNameKeys: headerNameKeys,
-            // isOpenMenu: _isOpenMenu,
             skillLogos: killLogos,
             severlessMap: severlessMap));
 

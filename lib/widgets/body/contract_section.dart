@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/email_bloc/email_bloc.dart';
@@ -8,12 +11,16 @@ import '../../core/utils/app_colors.dart';
 import '../../core/widgets/custom_button.dart';
 import '../text/white-normal-txt.dart';
 
-class ContractSection extends StatelessWidget {
+class ContractSection extends StatefulWidget {
   const ContractSection({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<ContractSection> createState() => _ContractSectionState();
+}
 
+class _ContractSectionState extends State<ContractSection> {
+  @override
+  Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController subjectController = TextEditingController();
@@ -25,45 +32,6 @@ class ContractSection extends StatelessWidget {
         width: double.infinity,
         child: BlocBuilder<EmailBloc, EmailState>(
           builder: (context, state) {
-            if (state is EmailSendingState) {
-              return Container(
-                width: double.infinity,
-                height: 200,
-                color: Colors.grey,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [Text("보내는중")],
-                ),
-              );
-            }
-
-            if (state is EmailResponseState) {
-              return Container(
-                width: 200,
-                height: 500,
-                color: Colors.grey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(state.resMsg),
-                    TextButton(
-                        onPressed: () {
-                          context.read<EmailBloc>().add(ClearEmailEvent());
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 26,
-                          ),
-                          child: Text("닫기"),
-                        ))
-                  ],
-                ),
-              );
-            }
-
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -102,12 +70,13 @@ class ContractSection extends StatelessWidget {
                         const SizedBox(height: 16),
                         CustomButton(
                           label: 'Submit',
-                          onPressed: () {
+                          onPressed: () async {
                             context.read<EmailBloc>().add(EmailSendEvent(
                                 emailController: emailController,
                                 messageController: messageController,
                                 nameController: nameController,
                                 subjectController: subjectController));
+                            _showEmailDialog(context);
                           },
                           backgroundColor: AppColors.primaryColor,
                           width: 200,
@@ -121,6 +90,46 @@ class ContractSection extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Future<void> _showEmailDialog(BuildContext context) async {
+    await showCupertinoDialog(
+      context: context,
+      builder: (context1) {
+        bool isopen = false;
+
+        return BlocProvider.value(
+          value: BlocProvider.of<EmailBloc>(context),
+          child: StatefulBuilder(
+            builder: (context2, setState) {
+              return BlocListener<EmailBloc, EmailState>(
+                listener: (context3, state) {
+                  setState(() {
+                    isopen = context3.read<EmailBloc>().isOpen;
+                  });
+                },
+                child: CupertinoAlertDialog(
+                  title: const Text("Email"),
+                  content: Text(isopen ? "전송완료" : "전송중"),
+                  actions: [
+                    SizedBox(
+                      height: 30,
+                      child: isopen
+                          ? TextButton(
+                              onPressed: () {
+                                Navigator.of(context1).pop();
+                              },
+                              child: const Text("확인"))
+                          : Container(),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

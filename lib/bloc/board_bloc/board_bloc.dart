@@ -10,7 +10,8 @@ import '../../repogitory/api_provider.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
   BoardBloc()
-      : super(const BoardInitial(amc001List: [], crc001List: [], hmc003List: [])) {
+      : super(const BoardInitial(
+            amc001List: [], crc001List: [], hmc003List: [])) {
     on<GetHMC003Action>(_getHMC003Func);
     on<GetAMC001Action>(_getAMC001Func);
     on<GetCRC001Action>(_getCRC001Func);
@@ -18,7 +19,11 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     _initialFunc();
   }
 
-  void _initialFunc() => add(GetHMC003Action());
+  void _initialFunc() {
+    add(GetHMC003Action());
+    add(GetAMC001Action());
+    add(GetCRC001Action());
+  }
 
   final ApiProvider _apiProvider = ApiProvider();
 

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/widgets/text/white-normal-txt.dart';
 
 import '../../bloc/board_bloc/board_bloc.dart';
-import '../../bloc/board_bloc/board_event.dart';
 import '../../bloc/board_bloc/board_state.dart';
 import 'logo_section.dart';
 
@@ -43,7 +42,7 @@ class AboutMeSection extends StatelessWidget {
                       size: 20,
                       color: Colors.white);
                 } else {
-                  context.read<BoardBloc>().add(GetAMC001Action());
+                  // context.read<BoardBloc>().add(GetAMC001Action());
                   return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

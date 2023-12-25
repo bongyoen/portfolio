@@ -14,6 +14,9 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
     on<ClearEmailEvent>(_clearEmailEvent);
   }
 
+  bool _isOpen = false;
+
+  get isOpen => _isOpen;
   final ApiProvider _apiProvider = ApiProvider();
 
   Future<FutureOr<void>> _emailSendEvent(
@@ -37,10 +40,14 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   FutureOr<void> _emailCompleteEvent(
       EmailCompleteEvent event, Emitter<EmailState> emit) {
-      emit(EmailResponseState(statusCode: event.statusCode, resMsg: event.resMsg));
+    print("실행됨");
+    _isOpen = true;
+    emit(
+        EmailResponseState(statusCode: event.statusCode, resMsg: event.resMsg));
   }
 
-  FutureOr<void> _clearEmailEvent(ClearEmailEvent event, Emitter<EmailState> emit) {
+  FutureOr<void> _clearEmailEvent(
+      ClearEmailEvent event, Emitter<EmailState> emit) {
     emit(EmailInitalState());
   }
 }
