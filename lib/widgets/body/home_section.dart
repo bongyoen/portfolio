@@ -11,6 +11,10 @@ class HomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, String> serverlessMap = context
+        .read<TestBloc>()
+        .severlessMap;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 80, top: 50),
       child: Column(
@@ -49,20 +53,33 @@ class HomeSection extends StatelessWidget {
             onTap: () async {
               await showDialog(
                   context: context,
-                  builder: (_) => ImageDialog(
-                        severlessMap: context.read<TestBloc>().severlessMap,
+                  builder: (_) =>
+                      ImageDialog(
+                        severlessMap: serverlessMap,
                       ));
             },
-            child: BlocBuilder<TestBloc, TestState>(
-              builder: (context, state) {
-                if (state is TestApiProvider) {
-                  return Image.network(
-                    state.severlessMap["image"]!,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
+            child: SizedBox(
+              height: 700,
+              child: BlocBuilder<TestBloc, TestState>(
+                builder: (context, state) {
+                  if (serverlessMap["image"]!.isEmpty) {
+                    return Container(
+                      height: 500,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(12)),
+                    );
+                  }
 
+                  return Image.network(
+                    serverlessMap["image"]!,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
                       return Container(
-                        height: 1000,
+                        height: 500,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             color: Colors.grey,
@@ -70,118 +87,47 @@ class HomeSection extends StatelessWidget {
                       );
                     },
                   );
-                }
-                return Container();
-              },
+                },
+              ),
             ),
           ),
           BlocBuilder<BoardBloc, BoardState>(
             builder: (context, state) {
               if (state is! BoardInitial) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ...state.hmc003List.map((board) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            WhiteNormalTxt(
-                                txt: board.boardNm,
-                                size: 20,
-                                color: Colors.deepPurpleAccent),
-                            ...board.boardRsltDtls
-                                .map((e) => WhiteNormalTxt(
-                                    txt: "- ${e.boardDtlTxt}",
-                                    size: 18,
-                                    color: Colors.white))
-                                .toList()
-                          ],
-                        );
-                      }).toList(),
-                    ],
+                return ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minHeight: 600
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ...state.hmc003List.map((board) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              WhiteNormalTxt(
+                                  txt: board.boardNm,
+                                  size: 20,
+                                  color: Colors.deepPurpleAccent),
+                              ...board.boardRsltDtls
+                                  .map((e) =>
+                                  WhiteNormalTxt(
+                                      txt: "- ${e.boardDtlTxt}",
+                                      size: 18,
+                                      color: Colors.white))
+                                  .toList()
+                            ],
+                          );
+                        }).toList(),
+                      ],
+                    ),
                   ),
                 );
               }
 
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 1000,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                    Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    const SizedBox(height: 12),
-                  ]);
-              ;
+              return Container();
             },
           ),
         ],
