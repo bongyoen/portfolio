@@ -75,9 +75,7 @@ class HomeSection extends StatelessWidget {
                   return Image.network(
                     serverlessMap["image"]!,
                     loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
+                      if (loadingProgress == null) return child;
                       return Container(
                         height: 500,
                         width: double.infinity,

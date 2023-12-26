@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/test/bloc/appbar_bloc/appbar_bloc.dart';
+import 'package:portfolio/test/bloc/board_bloc/board_bloc.dart';
 import 'package:portfolio/test/bloc/body_bloc/body_bloc.dart';
 import 'package:portfolio/test/bloc/scroll_bloc/home_scroll_bloc.dart';
 import 'package:portfolio/test/home/home_view.dart';
@@ -22,6 +23,9 @@ class PortfolioApp extends StatelessWidget {
           ),
           BlocProvider<HomeScrollBloc>(
             create: (context) => HomeScrollBloc(),
+          ),
+          BlocProvider<BoardBloc>(
+            create: (context) => BoardBloc(),
           ),
         ], child: const HomeView()),
       );

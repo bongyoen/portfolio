@@ -7,3 +7,12 @@ abstract class BodyState extends Equatable {
 
 class BodyInitialState extends BodyState {}
 
+class ServerMapState extends BodyState{
+  final Map<String, String> severlessMap;
+
+  ServerMapState({required this.severlessMap});
+
+  @override
+  List<Object> get props => [severlessMap];
+}
+
