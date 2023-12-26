@@ -7,7 +7,7 @@ class ContractSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.yellow,
-      height: 500,
+      height: 1000,
     );
   }
 }

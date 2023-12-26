@@ -7,7 +7,7 @@ class CareerSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.blue,
-      height: 500,
+      height: 1000,
     );
   }
 }

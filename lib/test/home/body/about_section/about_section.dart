@@ -7,7 +7,7 @@ class AboutSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.red,
-      height: 500,
+      height: 1000,
     );
   }
 }

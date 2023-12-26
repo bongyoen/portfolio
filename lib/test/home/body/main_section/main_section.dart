@@ -7,7 +7,7 @@ class MainSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      height: 500,
+      height: 1000,
     );
   }
 }
