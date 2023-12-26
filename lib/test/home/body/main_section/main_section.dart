@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/test/bloc/board_bloc/board_bloc.dart';
 import 'package:portfolio/test/bloc/board_bloc/board_state.dart';
 import 'package:portfolio/test/core/util/app_style.dart';
-import 'package:portfolio/test/home/body/main_section/server_map_img_part.dart';
 
 import 'how_make_part.dart';
 import 'intro_part.dart';
@@ -21,7 +20,7 @@ class MainSection extends StatelessWidget {
           "서버리스 기반의 고가용성 웹어플리케이션",
           style: AppStyle.ts25w600,
         ),
-        const ServerMapImgPart(),
+        // const ServerMapImgPart(),
         const ServerMapIntroPart()
       ],
     );
