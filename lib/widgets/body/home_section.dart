@@ -11,9 +11,7 @@ class HomeSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> serverlessMap = context
-        .read<TestBloc>()
-        .severlessMap;
+    Map<String, String> serverlessMap = context.read<TestBloc>().severlessMap;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 80, top: 50),
@@ -53,8 +51,7 @@ class HomeSection extends StatelessWidget {
             onTap: () async {
               await showDialog(
                   context: context,
-                  builder: (_) =>
-                      ImageDialog(
+                  builder: (_) => ImageDialog(
                         severlessMap: serverlessMap,
                       ));
             },
@@ -93,9 +90,7 @@ class HomeSection extends StatelessWidget {
             builder: (context, state) {
               if (state is! BoardInitial) {
                 return ConstrainedBox(
-                  constraints: const BoxConstraints(
-                    minHeight: 600
-                  ),
+                  constraints: const BoxConstraints(minHeight: 600),
                   child: Padding(
                     padding: const EdgeInsets.only(top: 30),
                     child: Column(
@@ -110,8 +105,7 @@ class HomeSection extends StatelessWidget {
                                   size: 20,
                                   color: Colors.deepPurpleAccent),
                               ...board.boardRsltDtls
-                                  .map((e) =>
-                                  WhiteNormalTxt(
+                                  .map((e) => WhiteNormalTxt(
                                       txt: "- ${e.boardDtlTxt}",
                                       size: 18,
                                       color: Colors.white))
