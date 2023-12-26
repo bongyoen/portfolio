@@ -21,16 +21,6 @@ class _HomeBodyState extends State<HomeBody> {
   ScrollController controller = ScrollController();
 
   @override
-  void initState() {
-    super.initState();
-    // controller.addListener(() {
-    //   context
-    //       .read<HomeScrollBloc>()
-    //       .add(ChangeScrollAxis(controller: controller));
-    // });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeScrollBloc, HomeScrollState>(
       builder: (context, state) {

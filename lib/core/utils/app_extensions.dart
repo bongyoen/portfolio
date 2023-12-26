@@ -19,16 +19,16 @@ extension AppBarHeaderExtension on AppBarHeaders {
 
 extension MediaQueryExtension on BuildContext {
   Size get _size => MediaQuery.of(this).size;
+
   double get width => _size.width;
+
   double get height => _size.height;
 }
 
 enum DeviceType { desktop }
 
 extension DeviceTypeExtension on DeviceType {
-  int getMaxWidth() {
-    return 768;
-  }
+  int getMaxWidth() => 768;
 
   Widget deviceType(BuildContext context, Widget mobile, Widget desktop) {
     return context.width < 768 ? mobile : desktop;

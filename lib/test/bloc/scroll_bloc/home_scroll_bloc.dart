@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portfolio/bloc/scroll_bloc/home_scroll_event.dart';
-import 'package:portfolio/bloc/scroll_bloc/home_scroll_state.dart';
 
-import '../../repogitory/api_provider.dart';
+import '../../core/repogitory/api_provider.dart';
+import 'home_scroll_event.dart';
+import 'home_scroll_state.dart';
 
 class HomeScrollBloc extends Bloc<HomeScrollEvent, HomeScrollState> {
   HomeScrollBloc() : super(HomeScrollInitial()) {
@@ -22,12 +22,17 @@ class HomeScrollBloc extends Bloc<HomeScrollEvent, HomeScrollState> {
   int _appBarHeaderIndex = 0;
   List<String> _headerNames = [];
   List<GlobalKey> _headerNameKeys = [];
+  final ScrollController _controller = ScrollController();
+
+  get controller => _controller;
 
   get isOpenMenu => _isOpenMenu;
 
   get appBarHeaderIndex => _appBarHeaderIndex;
 
-  void _initialFunc() => add(InitStateEvent());
+  void _initialFunc() {
+    add(InitStateEvent());
+  }
 
   final ApiProvider _apiProvider = ApiProvider();
 
@@ -51,7 +56,8 @@ class HomeScrollBloc extends Bloc<HomeScrollEvent, HomeScrollState> {
   FutureOr<void> _changeScrollAxis(
       ChangeScrollAxis event, Emitter<HomeScrollState> emit) {
     double sumHeight = 0;
-    if (event.controller.offset == event.controller.position.maxScrollExtent) {
+    print("스크롤중");
+    if (controller.offset == controller.position.maxScrollExtent) {
       _appBarHeaderIndex = _headerNameKeys.length - 1;
 
       emit(ChangeScrollState(
@@ -62,9 +68,8 @@ class HomeScrollBloc extends Bloc<HomeScrollEvent, HomeScrollState> {
     } else {
       for (GlobalKey key in _headerNameKeys) {
         sumHeight += key.currentContext!.size!.height;
-        print("${event.controller.offset} $sumHeight");
 
-        if (event.controller.offset < sumHeight) {
+        if (controller.offset < sumHeight) {
           int index = _headerNameKeys.indexWhere((element) => element == key);
 
           if (_appBarHeaderIndex != index) {

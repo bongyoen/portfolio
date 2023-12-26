@@ -1,7 +1,6 @@
 enum AppBarHeaders {
   home,
   aboutMe,
-  // projects,
   career,
   contact
 }

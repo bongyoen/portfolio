@@ -1,0 +1,55 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/repogitory/api_provider.dart';
+import 'email_event.dart';
+import 'email_state.dart';
+
+
+
+class EmailBloc extends Bloc<EmailEvent, EmailState> {
+  EmailBloc() : super(EmailInitalState()) {
+    on<EmailSendEvent>(_emailSendEvent);
+    on<EmailCompleteEvent>(_emailCompleteEvent);
+    on<ClearEmailEvent>(_clearEmailEvent);
+  }
+
+  bool _isOpen = false;
+
+  get isOpen => _isOpen;
+  final ApiProvider _apiProvider = ApiProvider();
+
+  Future<FutureOr<void>> _emailSendEvent(
+      EmailSendEvent event, Emitter<EmailState> emit) async {
+    final name = event.nameController.value.text;
+    final email = event.emailController.value.text;
+    final subject = event.subjectController.value.text;
+    final message = event.messageController.value.text;
+
+    emit(EmailSendingState());
+
+    Response response =
+        await _apiProvider.postSendEmail(name, email, subject, message);
+
+    int? statusCode = response.statusCode;
+    String? resMsg = response.data["resMsg"];
+
+    add(EmailCompleteEvent(
+        statusCode: statusCode ?? 400, resMsg: resMsg ?? "fail"));
+  }
+
+  FutureOr<void> _emailCompleteEvent(
+      EmailCompleteEvent event, Emitter<EmailState> emit) {
+    print("실행됨");
+    _isOpen = true;
+    emit(
+        EmailResponseState(statusCode: event.statusCode, resMsg: event.resMsg));
+  }
+
+  FutureOr<void> _clearEmailEvent(
+      ClearEmailEvent event, Emitter<EmailState> emit) {
+    emit(EmailInitalState());
+  }
+}
