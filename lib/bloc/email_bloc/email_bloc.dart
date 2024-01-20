@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/email_bloc/email_event.dart';
 import 'package:portfolio/bloc/email_bloc/email_state.dart';
@@ -15,6 +16,11 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
   }
 
   bool _isOpen = false;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
 
   get isOpen => _isOpen;
   final ApiProvider _apiProvider = ApiProvider();
@@ -40,7 +46,6 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 
   FutureOr<void> _emailCompleteEvent(
       EmailCompleteEvent event, Emitter<EmailState> emit) {
-    print("실행됨");
     _isOpen = true;
     emit(
         EmailResponseState(statusCode: event.statusCode, resMsg: event.resMsg));

@@ -23,3 +23,5 @@ class ChangeScrollAxis extends TestEvent {
 
   ChangeScrollAxis({required this.controller});
 }
+
+class GetProfileImg extends TestEvent{}

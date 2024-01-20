@@ -62,7 +62,6 @@ class HomeScrollBloc extends Bloc<HomeScrollEvent, HomeScrollState> {
     } else {
       for (GlobalKey key in _headerNameKeys) {
         sumHeight += key.currentContext!.size!.height;
-        print("${event.controller.offset} $sumHeight");
 
         if (event.controller.offset < sumHeight) {
           int index = _headerNameKeys.indexWhere((element) => element == key);

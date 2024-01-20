@@ -10,9 +10,9 @@ import 'package:portfolio/repogitory/api_provider.dart';
 class TestBloc extends Bloc<TestEvent, TestState> {
   TestBloc() : super(TestInitial()) {
     on<TestAction>(_getTitle);
+    on<GetProfileImg>(_getProfileImg);
     on<ChangeHeaderIndex>(_changeHeaderIndex);
     on<ChangeScrollAxis>(_changeScrollAxis);
-
     _initialFunc();
   }
 
@@ -22,7 +22,23 @@ class TestBloc extends Bloc<TestEvent, TestState> {
   List<Map<String, String>> killLogos = [];
   Map<String, String> severlessMap = {"image": ""};
 
-  void _initialFunc() => add(TestAction());
+  final StreamController<String> _todoListSubject =
+      StreamController<String>.broadcast();
+
+  Stream<String> get todoList => _todoListSubject.stream;
+
+  void getMapImg() async {
+    String image = (await _apiProvider.postImageUrl("profile", "jpg"))
+        .data["preSingedUrl"];
+
+    _todoListSubject.sink.add(image);
+  }
+
+  void _initialFunc() {
+    add(TestAction());
+    add(GetProfileImg());
+    getMapImg();
+  }
 
   FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
     severlessMap["image"] =
@@ -34,6 +50,12 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         index: appBarHeaderIndex,
         skillLogos: killLogos,
         severlessMap: severlessMap));
+  }
+
+  Future<FutureOr<void>> _getProfileImg(
+      GetProfileImg event, Emitter<TestState> emit) async {
+    severlessMap["image"] =
+        (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
   }
 
   Future<List<Map<String, String>>> _getSkillLogo() async {
@@ -71,8 +93,10 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     if (headerNameKeys[appBarHeaderIndex].currentContext != null) {
       Scrollable.ensureVisible(
           headerNameKeys[appBarHeaderIndex].currentContext!,
-          duration: const Duration(milliseconds: 300));
+          duration: const Duration(milliseconds: 1));
     }
+
+
     emit(TestApiProvider(
         index: appBarHeaderIndex,
         skillLogos: killLogos,
@@ -83,14 +107,15 @@ class TestBloc extends Bloc<TestEvent, TestState> {
 
   void _changeScrollAxis(ChangeScrollAxis event, Emitter<TestState> emit) {
     double sumHeight = 0;
+    print("실행됨111");
 
     if (event.controller.offset == event.controller.position.maxScrollExtent) {
       appBarHeaderIndex = headerNameKeys.length - 1;
+
       emit(TestApiProvider(
           index: appBarHeaderIndex,
           skillLogos: killLogos,
           severlessMap: severlessMap));
-
       return;
     }
 
@@ -110,8 +135,4 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       }
     }
   }
-
-  late Function initScrollEvent = () {
-    initScrollEvent = () {};
-  };
 }

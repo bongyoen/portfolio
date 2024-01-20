@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_colors.dart';
-import '../utils/app_styles.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -41,7 +41,7 @@ class CustomButton extends StatelessWidget {
             Flexible(
               child: AutoSizeText(
                 label,
-                style: AppStyles.s16,
+                style: AppTxtStyles.s16,
                 textAlign: TextAlign.center,
                 minFontSize: 8,
                 maxLines: 1,

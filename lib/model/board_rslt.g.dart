@@ -13,11 +13,13 @@ BoardRslt _$BoardRsltFromJson(Map<String, dynamic> json) => BoardRslt(
       (json['boardRsltDtls'] as List<dynamic>)
           .map((e) => BoardRsltDtl.fromJson(e as Map<String, dynamic>))
           .toList(),
+      json['boardUrl'] as String?,
     );
 
 Map<String, dynamic> _$BoardRsltToJson(BoardRslt instance) => <String, dynamic>{
       'boardNo': instance.boardNo,
       'boardNm': instance.boardNm,
+      'boardUrl': instance.boardUrl,
       'boardCl': instance.boardCl,
       'boardRsltDtls': instance.boardRsltDtls,
     };

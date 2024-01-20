@@ -1,18 +1,23 @@
 abstract class AppStrings {
   static const String developerName = 'Beyondi';
-  static const String helloIM = 'Hello, i’m';
-  static const String introMsg =
-      "Flutter developer with +2 years of experience. I have completed many projects that prove my ability to provide creative and high-quality solutions.";
-  static String aboutMeMsg =
-      "I'm a Flutter developer with a good understanding of the Flutter framework, I have experience in UI design, API integration, clean code writing and knowledge of solid principles and clean architecture. I have completed many projects that prove my ability to provide creative and high-quality solutions and finish them in an almost complete way with a great user experience without any problems facing users";
-  static const String numOfExperience = '2+';
-  static const String experienceMsg =
-      'Years of experience, Specialized in building apps, while ensuring a seamless web experience for end users.';
-  static const String servicesIOffer = 'The services i offer:';
-  static const String featuredProjects = 'Featured projects';
-  static const String projectsMsg =
-      "I have completed many projects that prove my ability to provide creative and high-quality solutions and finish them in an almost complete way with a great user experience without any problems facing users.";
-  static const String contactMsg =
-      "For any service and work you can contact with me by send an email or by our social media accounts.";
-  static const String contactWithMe = 'Contact with me';
+  static const String homeIntroTxt = '시스템과 프레임워크로 일하는 개발자';
+  static const String emailTitle = 'Email.';
+  static const String githubTitme = 'GitHub';
+  static const String aboutMeTitle = 'About Me';
+  static const String contrackTitle = 'Contract';
+  static const String name = 'Name';
+  static const String email = 'E-mail';
+  static const String subject = 'Subject';
+  static const String mailTxtGuild = 'Type a message here...';
+  static const String submit = 'Submit';
+  static const String requestOk = "전송완료";
+  static const String requestLoading = "전송중";
+  static const String ok = '확인';
+  static const String skill = 'Skill';
+  static const String portfolio = 'Portfolio';
+  static const String howMake = 'How can I make a portfolio?';
+  static const String portfolioTitle = '서버리스 기반의 고가용성 웹어플리케이션';
+  static const String carrer = 'Carrer';
+  static const String carrerTxt1 = '다양한 경험과 지식';
+  static const String carrerTxt2 = 'DB, 프레임워크, 서버';
 }

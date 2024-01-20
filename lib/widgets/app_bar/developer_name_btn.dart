@@ -23,7 +23,7 @@ class DeveloperNameBtn extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Text(
               AppStrings.developerName,
-              style: AppStyles.s28,
+              style: AppTxtStyles.s28,
             ),
           ),
         ),

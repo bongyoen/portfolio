@@ -34,6 +34,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Future<FutureOr<void>> _getHMC003Func(
       GetHMC003Action event, Emitter<BoardState> emit) async {
     Response response = await _apiProvider.postBoardByCl("HMC003");
+
     List<BoardRslt> boardRslts =
         (response.data as List).map((e) => BoardRslt.fromJson(e)).toList();
     hmc003List = boardRslts;
@@ -46,6 +47,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Future<FutureOr<void>> _getAMC001Func(
       GetAMC001Action event, Emitter<BoardState> emit) async {
     Response response = await _apiProvider.postBoardByCl("AMC001");
+
     List<BoardRslt> boardRslts =
         (response.data as List).map((e) => BoardRslt.fromJson(e)).toList();
     amc001List = boardRslts;
@@ -58,6 +60,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Future<FutureOr<void>> _getCRC001Func(
       GetCRC001Action event, Emitter<BoardState> emit) async {
     Response response = await _apiProvider.postBoardByCl("CRC001");
+
     List<BoardRslt> boardRslts =
         (response.data as List).map((e) => BoardRslt.fromJson(e)).toList();
     crc001List = boardRslts;

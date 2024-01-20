@@ -8,10 +8,11 @@ part 'board_rslt.g.dart';
 class BoardRslt {
   final int boardNo;
   final String boardNm;
+  final String? boardUrl;
   final String boardCl;
   final List<BoardRsltDtl> boardRsltDtls;
 
-  BoardRslt(this.boardNo, this.boardNm, this.boardCl, this.boardRsltDtls);
+  BoardRslt(this.boardNo, this.boardNm, this.boardCl, this.boardRsltDtls, this.boardUrl);
 
   factory BoardRslt.fromJson(Map<String, dynamic> json) {
     return _$BoardRsltFromJson(json);

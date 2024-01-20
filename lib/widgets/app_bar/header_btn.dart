@@ -22,7 +22,7 @@ class HeaderBtn extends StatelessWidget {
               .add(ChangeHeaderIndex(index: headerIndex, context: context));
         },
         style: TextButton.styleFrom(
-            textStyle: AppStyles.s16,
+            textStyle: AppTxtStyles.s16,
             backgroundColor: AppColors.appBarColor,
             foregroundColor: _getHeaderColor(
                 currentIndex: context.read<HomeScrollBloc>().appBarHeaderIndex,

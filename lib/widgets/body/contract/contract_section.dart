@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/email_bloc/email_bloc.dart';
 import 'package:portfolio/bloc/email_bloc/email_state.dart';
+import 'package:portfolio/core/utils/app_strings.dart';
+import 'package:portfolio/core/utils/app_styles.dart';
 
-import '../../bloc/email_bloc/email_event.dart';
-import '../../core/utils/app_colors.dart';
-import '../../core/widgets/custom_button.dart';
-import '../text/white-normal-txt.dart';
+import '../../../bloc/email_bloc/email_event.dart';
+import '../../../core/utils/app_colors.dart';
+import '../../cmmn/section_widget.dart';
+import '../../cmmn/title_widget.dart';
+import 'custom_button.dart';
 
 class ContractSection extends StatefulWidget {
   const ContractSection({super.key});
@@ -21,22 +24,16 @@ class ContractSection extends StatefulWidget {
 class _ContractSectionState extends State<ContractSection> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController subjectController = TextEditingController();
-    TextEditingController messageController = TextEditingController();
+    EmailBloc bloc = context.read<EmailBloc>();
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 80),
-      child: SizedBox(
-        width: double.infinity,
-        child: BlocBuilder<EmailBloc, EmailState>(
+    return SectionWidget(
+      children: [
+        const TitleText(title: AppStrings.contrackTitle),
+        BlocBuilder<EmailBloc, EmailState>(
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const WhiteNormalTxt(
-                    txt: "Contract", size: 60, color: Colors.deepPurpleAccent),
                 SizedBox(
                   width: 500,
                   child: Form(
@@ -44,38 +41,39 @@ class _ContractSectionState extends State<ContractSection> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         TextFormField(
-                          controller: nameController,
-                          decoration: const InputDecoration(labelText: 'Name'),
+                          controller: bloc.nameController,
+                          decoration:
+                              const InputDecoration(labelText: AppStrings.name),
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
-                          controller: emailController,
-                          decoration:
-                              const InputDecoration(labelText: 'E-mail'),
+                          controller: bloc.emailController,
+                          decoration: const InputDecoration(
+                              labelText: AppStrings.email),
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
-                          controller: subjectController,
-                          decoration:
-                              const InputDecoration(labelText: 'Subject'),
+                          controller: bloc.subjectController,
+                          decoration: const InputDecoration(
+                              labelText: AppStrings.subject),
                         ),
                         const SizedBox(height: 12),
                         TextField(
                           maxLines: 5,
-                          controller: messageController,
+                          controller: bloc.messageController,
                           decoration: const InputDecoration(
-                            labelText: 'Type a message here...',
+                            labelText: AppStrings.mailTxtGuild,
                           ),
                         ),
                         const SizedBox(height: 16),
                         CustomButton(
-                          label: 'Submit',
+                          label: AppStrings.submit,
                           onPressed: () async {
                             context.read<EmailBloc>().add(EmailSendEvent(
-                                emailController: emailController,
-                                messageController: messageController,
-                                nameController: nameController,
-                                subjectController: subjectController));
+                                emailController: bloc.emailController,
+                                messageController: bloc.messageController,
+                                nameController: bloc.nameController,
+                                subjectController: bloc.subjectController));
                             _showEmailDialog(context);
                           },
                           backgroundColor: AppColors.primaryColor,
@@ -88,8 +86,8 @@ class _ContractSectionState extends State<ContractSection> {
               ],
             );
           },
-        ),
-      ),
+        )
+      ],
     );
   }
 
@@ -110,8 +108,10 @@ class _ContractSectionState extends State<ContractSection> {
                   });
                 },
                 child: CupertinoAlertDialog(
-                  title: const Text("Email"),
-                  content: Text(isopen ? "전송완료" : "전송중"),
+                  title: const Text(AppStrings.email),
+                  content: Text(isopen
+                      ? AppStrings.requestOk
+                      : AppStrings.requestLoading),
                   actions: [
                     SizedBox(
                       height: 30,
@@ -120,7 +120,7 @@ class _ContractSectionState extends State<ContractSection> {
                               onPressed: () {
                                 Navigator.of(context1).pop();
                               },
-                              child: const Text("확인"))
+                              child: const Text(AppStrings.ok))
                           : Container(),
                     )
                   ],
