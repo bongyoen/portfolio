@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:portfolio/bloc/skill_bloc/skill_event.dart';
 import 'package:portfolio/bloc/skill_bloc/skill_state.dart';
@@ -15,7 +14,7 @@ class SkillBloc extends Bloc<SkillEvent, SkillState> {
   final ApiProvider _apiProvider = ApiProvider();
   final Map<String, String> _map = {};
 
-  String getImg(ImageInfos name) => _map[name] ?? "";
+  String getImg(SkillImagesEnum name) => _map[name] ?? "";
 
   Future<FutureOr<void>> _getSkillImgEvent(
       GetSkillImgEvent event, Emitter<SkillState> emit) async {

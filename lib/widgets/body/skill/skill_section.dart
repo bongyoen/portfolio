@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portfolio/bloc/test_bloc/test_bloc.dart';
-import 'package:portfolio/bloc/test_bloc/test_state.dart';
+import 'package:portfolio/bloc/test_bloc/home_bloc.dart';
+import 'package:portfolio/bloc/test_bloc/home_state.dart';
 import 'package:portfolio/core/utils/app_strings.dart';
 import 'package:portfolio/core/utils/app_styles.dart';
 import 'package:portfolio/core/utils/image_enum.dart';
@@ -18,7 +18,7 @@ class SkillSection extends StatelessWidget {
     return SectionWidget(
       children: [
         const TitleText(title: AppStrings.skill),
-        BlocBuilder<TestBloc, TestState>(
+        BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             const skills = SkillSectionEnum.values;
 

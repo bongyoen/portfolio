@@ -38,7 +38,7 @@ class SkillBox extends StatelessWidget {
 
             return Wrap(
               children: List.generate(skill.getSkills().length, (index) {
-                List<ImageInfos> list = skill.getSkills();
+                List<SkillImagesEnum> list = skill.getSkills();
 
                 if (state.map[list[index].getName()] == null) {
                   return skillBoxPadding(Container(

@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:portfolio/bloc/test_bloc/test_event.dart';
-import 'package:portfolio/bloc/test_bloc/test_state.dart';
+import 'package:portfolio/bloc/test_bloc/home_event.dart';
+import 'package:portfolio/bloc/test_bloc/home_state.dart';
+import 'package:portfolio/core/utils/image_enum.dart';
 import 'package:portfolio/repogitory/api_provider.dart';
 
-class TestBloc extends Bloc<TestEvent, TestState> {
-  TestBloc() : super(TestInitial()) {
-    on<TestAction>(_getTitle);
+class HomeBloc extends Bloc<HomeEvent, HomeState> {
+  HomeBloc() : super(HomeInitial()) {
+    on<HomeInitAction>(_getTitle);
     on<GetProfileImg>(_getProfileImg);
     on<ChangeHeaderIndex>(_changeHeaderIndex);
     on<ChangeScrollAxis>(_changeScrollAxis);
@@ -21,71 +22,61 @@ class TestBloc extends Bloc<TestEvent, TestState> {
   List<GlobalKey> headerNameKeys = [];
   List<Map<String, String>> killLogos = [];
   Map<String, String> severlessMap = {"image": ""};
+  late final String _profileImg;
 
-  final StreamController<String> _todoListSubject =
+  final SkillImagesEnum skill = SkillImagesEnum.values[0];
+  final StreamController<String> profileImageStreamCtrl =
       StreamController<String>.broadcast();
 
-  Stream<String> get todoList => _todoListSubject.stream;
+  Stream<String> get profileStream => profileImageStreamCtrl.stream;
+
+  String get profileImage => _profileImg;
 
   void getMapImg() async {
     String image = (await _apiProvider.postImageUrl("profile", "jpg"))
         .data["preSingedUrl"];
-
-    _todoListSubject.sink.add(image);
+    _profileImg = image;
+    profileImageStreamCtrl.sink.add(image);
   }
 
   void _initialFunc() {
-    add(TestAction());
+    add(HomeInitAction());
     add(GetProfileImg());
     getMapImg();
   }
 
-  FutureOr<void> _getTitle(TestAction event, Emitter<TestState> emit) async {
+  FutureOr<void> _getTitle(
+      HomeInitAction event, Emitter<HomeState> emit) async {
     severlessMap["image"] =
         (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
 
     killLogos = await _getSkillLogo();
 
-    emit(TestApiProvider(
+    emit(HomeApiProvider(
         index: appBarHeaderIndex,
         skillLogos: killLogos,
         severlessMap: severlessMap));
   }
 
   Future<FutureOr<void>> _getProfileImg(
-      GetProfileImg event, Emitter<TestState> emit) async {
+      GetProfileImg event, Emitter<HomeState> emit) async {
     severlessMap["image"] =
         (await _apiProvider.postImageUrl("map", "png")).data["preSingedUrl"];
   }
 
   Future<List<Map<String, String>>> _getSkillLogo() async {
-    final bearItem = [
-      {"name": "jira", "extension": "png", "image": ""},
-      {"name": "react", "extension": "png", "image": ""},
-      {"name": "angular", "extension": "png", "image": ""},
-      {"name": "aws", "extension": "png", "image": ""},
-      {"name": "electron", "extension": "png", "image": ""},
-      {"name": "flutter", "extension": "png", "image": ""},
-      {"name": "git", "extension": "png", "image": ""},
-      {"name": "maria", "extension": "png", "image": ""},
-      {"name": "redmine", "extension": "png", "image": ""},
-      {"name": "ts", "extension": "png", "image": ""},
-      {"name": "mysql", "extension": "png", "image": ""},
-    ];
+    List<Map<String, String>> imagesCond = skill.getImageCond();
+    Response response = await _apiProvider.postImagesUrl(imagesCond);
 
-    Response response = await _apiProvider.postImagesUrl(bearItem);
-
-    List<dynamic> imageList = response.data;
-
-    for (var i = 0; i < imageList.length; i++) {
-      bearItem[i]["image"] = imageList[i]["preSingedUrl"];
+    for (var i = 0; i < response.data.length; i++) {
+      imagesCond[i]["image"] = response.data[i]["preSingedUrl"];
     }
 
-    return bearItem;
+    return imagesCond;
   }
 
   FutureOr<void> _changeHeaderIndex(
-      ChangeHeaderIndex event, Emitter<TestState> emit) {
+      ChangeHeaderIndex event, Emitter<HomeState> emit) {
     appBarHeaderIndex = event.index;
 
     Navigator.of(event.context).maybePop();
@@ -96,23 +87,19 @@ class TestBloc extends Bloc<TestEvent, TestState> {
           duration: const Duration(milliseconds: 1));
     }
 
-
-    emit(TestApiProvider(
+    emit(HomeApiProvider(
         index: appBarHeaderIndex,
         skillLogos: killLogos,
         severlessMap: severlessMap));
   }
 
-  bool test1 = false;
-
-  void _changeScrollAxis(ChangeScrollAxis event, Emitter<TestState> emit) {
+  void _changeScrollAxis(ChangeScrollAxis event, Emitter<HomeState> emit) {
     double sumHeight = 0;
-    print("실행됨111");
 
     if (event.controller.offset == event.controller.position.maxScrollExtent) {
       appBarHeaderIndex = headerNameKeys.length - 1;
 
-      emit(TestApiProvider(
+      emit(HomeApiProvider(
           index: appBarHeaderIndex,
           skillLogos: killLogos,
           severlessMap: severlessMap));
@@ -126,7 +113,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
         int index = headerNameKeys.indexWhere((element) => element == key);
         appBarHeaderIndex = index;
 
-        emit(TestApiProvider(
+        emit(HomeApiProvider(
             index: appBarHeaderIndex,
             skillLogos: killLogos,
             severlessMap: severlessMap));

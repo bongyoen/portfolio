@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../bloc/test_bloc/test_bloc.dart';
-import '../../../bloc/test_bloc/test_state.dart';
+import '../../../bloc/test_bloc/home_bloc.dart';
+import '../../../bloc/test_bloc/home_state.dart';
 
 class MapImage extends StatelessWidget {
   const MapImage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Map<String, String> serverlessMap = context.read<TestBloc>().severlessMap;
+    Map<String, String> serverlessMap = context.read<HomeBloc>().severlessMap;
 
     return GestureDetector(
       onTap: () async {
@@ -20,7 +20,7 @@ class MapImage extends StatelessWidget {
                 ));
       },
       child: SizedBox(
-        child: BlocBuilder<TestBloc, TestState>(
+        child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (serverlessMap["image"]!.isEmpty) {
               return Container(

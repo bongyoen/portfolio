@@ -8,7 +8,7 @@ abstract class SkillEvent extends Equatable {
 }
 
 class GetSkillImgEvent extends SkillEvent{
-  final ImageInfos imageInfos;
+  final SkillImagesEnum imageInfos;
 
   GetSkillImgEvent({required this.imageInfos});
 }
